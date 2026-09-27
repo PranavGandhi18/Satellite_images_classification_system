@@ -293,25 +293,42 @@ Anyone with the key can upload tiles, and each one is stored (~7 KB). There's no
 
 ### 1. The classifier turns out to be wrong about 30% of the time. What do you do, and how do you decide whether it's "good enough"?
 
-**First, check the number itself.** On our eval set the model is wrong 1.4% of the time (98.6% accuracy), so a 30% error rate means it was measured on *different* data, most likely real GalaxEye tiles. That gap is the real finding. Before reacting I'd check four things:
-- **How it was measured:** how many tiles, and a confidence interval on the 30%.
-- **What the sample was:** a random sample, not the review queue, which is deliberately full of hard cases.
-- **Who labelled it,** and whether they defined "Residential" or "Highway" the way EuroSAT does.
-- **Preprocessing:** re-run a few tiles offline through the model. The model-selection work found a model that drops from 99% to 13% silently with the wrong preprocessing.
+**Take the 30% apart before acting on it.** One error rate hides almost everything that matters.
+- **Is the number solid?** Ask four things:
+  - How many labelled examples is it based on, and what's the confidence interval?
+  - Is it a random sample of real traffic, or a hand-picked or hard-case set?
+  - Did the labellers follow one written definition of each class? On land use, two people can disagree on 10–20% of tiles, which puts a ceiling on any model.
+  - Is it measured on data like what the model will see in production?
+- **Where are the errors?** Use a per-class confusion matrix, error rates by input condition (cloud, season, region, sensor, processing level), and error against confidence. There are usually three patterns, and each points to a different fix:
+  - **concentrated** in a few classes that genuinely look alike at this resolution;
+  - **systematic** in one condition: domain shift, or a pipeline bug such as preprocessing that differs from training;
+  - **open-set:** inputs that belong to none of the classes but are forced into one.
+- **Is it the model or the pipeline?** Re-run a sample offline and compare the input statistics with the training data. A sudden jump to 30% is more often a data or pipeline change than a bad model.
 
-**Then find where the errors are.** A confusion matrix plus the quality flags and unfamiliar scores of the misclassified tiles tell you whether the errors are:
-- **concentrated:** Highway vs River, which is genuinely hard at 10 m per pixel;
-- **systematic:** clouds, one season, one sensor or processing level;
-- **open-set:** land types we have no class for, like pasture or orchards, forced into one of the 7.
+**"Good enough" is a decision about use, not a threshold on accuracy.**
+- **Name the decision the output feeds, and what each kind of error costs.** A missed flood and a false alarm are not equally bad. Accuracy weighs them the same, so judge by per-class precision/recall, or by expected cost.
+- **Compare against the real alternative,** not against perfection. That might be people labelling everything (with its cost and delay), a simple baseline (always predicting the majority class, a vegetation-index rule, last year's map), or no information at all. 70% can be excellent when the alternative is 40%, and useless when the task needs 99%.
+- **Write the acceptance test down before measuring,** on data that represents deployment. For example: "≥95% precision on the tiles it auto-accepts, at ≥50% coverage, on ≥500 randomly sampled labelled tiles".
 
-Each points to a different fix: more labels, a stricter input check, or an "Other" class.
+**A model that's 30% wrong overall can still be useful,** because its errors are rarely spread evenly:
+- **Triage (selective prediction):** automatically accept the predictions it's confident about, and send the rest to people. The coverage-vs-accuracy curve shows whether this works. If its most confident 60% are 97% right, it removes 60% of the manual work.
+- **Totals rather than individual tiles:** if the error rates are measured, class counts can be statistically corrected for them. Area estimates stay unbiased even when many single tiles are wrong.
+- **Partial scope:** use it only for the classes or conditions where it's reliable, and abstain elsewhere.
+- **Support rather than decision:** ranking tiles for human attention tolerates far more error than taking automatic action.
 
-**"Good enough" depends on what the output is used for, not on the error rate.** I'd write the acceptance test down *before* measuring, e.g.: "≥95% precision on auto-accepted tiles at ≥50% coverage, on ≥500 randomly sampled, labelled GalaxEye tiles". Then compare against the real alternative, which is usually humans labelling everything, or nothing at all. A 30%-wrong model can still be useful in three ways:
-- **As triage:** if its most confident 60% are 97% right, auto-accept those and send the rest to the review queue. That removes 60% of analyst work. The versioned confidence / unfamiliar policy is built for exactly this.
-- **For totals:** if the errors are systematic and measured, the confusion-matrix correction on `/explore → Aggregate` still gives unbiased class shares with honest intervals, even when individual tiles are often wrong.
-- **For some classes only:** ship the classes it gets right, and mark the others for review.
+**Then improve it, cheapest fix first:**
+1. fix data or pipeline problems;
+2. get labels from the deployment domain (the people reviewing uncertain predictions produce exactly these);
+3. retrain or fine-tune on them;
+4. revisit the class definitions: merge classes that can't be told apart at this resolution, and add an "other/unknown" class;
+5. add information: more spectral bands, SAR, several dates, or more surrounding context;
+6. only then try a bigger model.
 
-**Improve it with the cheapest fix first.** Fine-tune on the target-domain tiles the review queue produces; that took 9 minutes (32 threads) to 23 minutes (16 threads) on CPU here. Merge or redefine classes that are ambiguous at this resolution. Use more spectral bands if the sensor provides them.
+*In this project the design is built for that loop:*
+- the versioned confidence / unfamiliar policy is the triage;
+- the review queue collects target-domain labels;
+- `/explore → Aggregate` reports confusion-corrected totals with intervals;
+- fine-tuning takes minutes on CPU, so retraining on the new labels is cheap.
 
 ### 2. The service runs offline with no one watching. A month after deployment, how would you know it's still working?
 

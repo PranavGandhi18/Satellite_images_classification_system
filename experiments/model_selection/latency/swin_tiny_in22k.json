@@ -1,0 +1,12 @@
+{
+ "key": "swin_tiny_in22k",
+ "input": 224,
+ "torch_ms_1thr": 159.8264928907156,
+ "torch_ms_4thr": 70.05234807729721,
+ "torch_tiles_per_s_4thr_b32": 9.671823746939811,
+ "onnx_mb": 112.8098,
+ "onnx_max_abs_diff": 1.4901161193847656e-06,
+ "onnx_ms_1thr": 117.08458699285984,
+ "onnx_ms_4thr": 53.394343703985214,
+ "onnx_tiles_per_s_4thr_b32": 23.36118049496496
+}

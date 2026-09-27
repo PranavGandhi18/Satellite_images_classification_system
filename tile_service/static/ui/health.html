@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health · Tile Classifier</title>
+<link rel="icon" href="/static/swagger-ui/favicon-32x32.png">
+<style>
+  /* self-contained on purpose: no chart library, fonts or styles from the internet (the service runs offline).
+     Colours are the documented reference palette: slot-1 blue for data, the fixed status scale for state. */
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #0b0b0b; --text-2: #52514e; --muted: #898781; --line: #e2e5eb;
+    --grid: #e1e0d9; --axis: #c3c2b7; --accent: #2f6fdf; --series-1: #2a78d6; --deemph: #aab3c2; --track: #edf0f5;
+    --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171d; --card: #1d212a; --text: #ffffff; --text-2: #c3c2b7; --muted: #898781; --line: #2d333f;
+      --grid: #2c2c2a; --axis: #383835; --accent: #6ea0ff; --series-1: #3987e5; --deemph: #5b6474; --track: #2a303b; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  .links { font-size: 14px; } .links a { color: var(--accent); margin-right: 14px; text-decoration: none; }
+  .muted { color: var(--muted); font-size: 13px; } .sub { color: var(--text-2); font-size: 13px; }
+  .card { min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card h2 { margin: 0 0 2px; font-size: 16px; } .card .cap { margin: 0 0 12px; }
+  .grid2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+  @media (max-width: 860px) { .grid2 { grid-template-columns: minmax(0, 1fr); } }
+  /* status: always icon + label, never colour alone */
+  .ico { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font-size: 12px; font-weight: 800; color: #fff; flex: none; }
+  .ico.good { background: var(--good); } .ico.warning { background: var(--warning); color: #3a2a00; }
+  .ico.serious { background: var(--serious); color: #3a1406; } .ico.critical { background: var(--critical); }
+  .banner { display: flex; gap: 14px; align-items: center; margin: 16px 0 14px; }
+  .banner .ico { width: 44px; height: 44px; font-size: 24px; }
+  .banner .title { font-size: 22px; font-weight: 650; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .tile .label { color: var(--text-2); font-size: 13px; }
+  .tile .value { font-size: 28px; font-weight: 600; line-height: 1.2; margin: 2px 0; }
+  .tile .value small { font-size: 14px; font-weight: 500; color: var(--text-2); }
+  .meter { position: relative; height: 8px; background: var(--track); border-radius: 4px; margin: 8px 0 4px; }
+  .meter .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 4px; }
+  .meter .tick { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--text-2); }
+  .checks { list-style: none; margin: 0; padding: 0; }
+  .checks li { display: grid; grid-template-columns: 20px 92px minmax(0, 1fr); gap: 10px; align-items: start; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .checks li:last-child { border-bottom: 0; }
+  .checks .state { font-size: 13px; font-weight: 600; } .checks .name { font-weight: 600; } .checks .detail { color: var(--text-2); font-size: 13px; }
+  .chart-head { display: flex; gap: 10px; align-items: flex-start; }
+  .chart-head > div { flex: 1; min-width: 0; }
+  .toggle { font: inherit; font-size: 12px; border: 1px solid var(--line); background: var(--card); color: var(--text-2); border-radius: 6px; padding: 3px 9px; cursor: pointer; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--text-2); margin: 0 0 6px; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
+  .legend .sw { width: 12px; height: 12px; border-radius: 3px; }
+  .legend .ico { width: 14px; height: 14px; font-size: 9px; }
+  .chart { position: relative; }
+  .chart svg { display: block; overflow: visible; }
+  .chart svg text { font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; fill: var(--muted); font-variant-numeric: tabular-nums; }
+  .chart svg .hit { fill: transparent; cursor: default; outline: none; }
+  .chart svg .dim { opacity: .35; }
+  .chart svg text.halo { paint-order: stroke; stroke: var(--card); stroke-width: 4px; stroke-linejoin: round; }
+  .tip { position: absolute; pointer-events: none; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px;
+         font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); min-width: 140px; z-index: 5; white-space: nowrap; }
+  .tip .h { color: var(--text-2); margin-bottom: 4px; } .tip .r { display: flex; align-items: center; gap: 7px; margin: 2px 0; }
+  .tip .r b { font-size: 13px; color: var(--text); } .tip .r i { display: inline-block; width: 12px; height: 2px; border-radius: 1px; }
+  .tip .r .l { color: var(--text-2); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { color: var(--text-2); font-weight: 600; } td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .table-wrap { overflow-x: auto; }
+  .selftest { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+  .gold { border: 1px solid var(--line); border-radius: 8px; padding: 8px; font-size: 12px; }
+  .gold img { width: 100%; aspect-ratio: 1; image-rendering: pixelated; border-radius: 4px; display: block; margin-bottom: 6px; }
+  .gold .row { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 13px; }
+  .gold .ico { width: 16px; height: 16px; font-size: 10px; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 3px 14px; font-size: 13px; margin: 0; }
+  .kv dt { color: var(--text-2); } .kv dd { margin: 0; font-variant-numeric: tabular-nums; }
+  .stale { opacity: .55; transition: opacity .2s; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main id="root">
+  <header>
+    <h1>Service health</h1>
+    <div class="links"><a href="/">Classify a tile</a><a href="/explore">Query results</a><a href="/docs">API docs</a>
+      <span class="muted">raw: <a href="/healthz">/healthz</a> · <a href="/v1/ops">/v1/ops</a> · <span id="updated"></span></span></div>
+  </header>
+
+  <div class="banner" id="banner"></div>
+  <section class="kpis" id="kpis"></section>
+
+  <div class="grid2">
+    <section class="card"><h2>Checks</h2><p class="cap muted">Each check judges one number against the threshold stated next to it.</p><ul class="checks" id="checks"></ul></section>
+    <section class="card">
+      <div class="chart-head"><div><h2>Classifications per day, by status</h2><p class="cap muted" id="c1-cap"></p></div><button class="toggle" data-for="c1">Table</button></div>
+      <div class="legend" id="c1-legend"></div><div class="chart" id="c1"></div><div class="table-wrap" id="c1-table" hidden></div>
+    </section>
+    <section class="card">
+      <div class="chart-head"><div><h2>Unfamiliar-input rate per day</h2><p class="cap muted">Share of tiles far from everything seen in training.
+        By construction about 1% of in-distribution tiles land here; a sustained rise means the inputs are drifting.</p></div><button class="toggle" data-for="c2">Table</button></div>
+      <div class="chart" id="c2"></div><div class="table-wrap" id="c2-table" hidden></div>
+    </section>
+    <section class="card">
+      <div class="chart-head"><div><h2>Predicted class mix</h2><p class="cap muted" id="c3-cap"></p></div><button class="toggle" data-for="c3">Table</button></div>
+      <div class="chart" id="c3"></div><div class="table-wrap" id="c3-table" hidden></div>
+    </section>
+    <section class="card"><h2>Model self-test</h2><p class="cap muted" id="st-cap"></p><div class="selftest" id="selftest"></div></section>
+    <section class="card"><h2>Service &amp; storage</h2><p class="cap muted">Where the time and the bytes go.</p><dl class="kv" id="storage"></dl></section>
+  </div>
+</main>
+<div class="tip" id="tip" hidden></div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const pct = (x, d = 1) => (x == null ? '–' : (100 * x).toFixed(d) + '%');
+const STATUS = ['confident', 'needs_review', 'unfamiliar', 'failed'];
+const MIN_RATE_TILES = 20;  // a daily rate from fewer tiles than this is noise
+const STATUS_TONE = {confident: 'good', needs_review: 'warning', unfamiliar: 'serious', failed: 'critical'};
+const TONE_ICON = {good: '✓', warning: '!', serious: '▲', critical: '✕'};
+const TONE_WORD = {good: 'OK', warning: 'Warning', serious: 'Serious', critical: 'Critical'};
+const nice = (s) => String(s).replace('_', ' ');
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const ico = (tone) => '<span class="ico ' + tone + '" aria-hidden="true">' + TONE_ICON[tone] + '</span>';
+let DATA = null;
+
+function bytes(n) { const u = ['B', 'KB', 'MB', 'GB', 'TB']; let i = 0; while (n >= 1000 && i < u.length - 1) { n /= 1000; i++; } return (i ? n.toFixed(1) : n) + ' ' + u[i]; }
+function ago(iso) {
+  if (!iso) return 'never';
+  const s = (Date.now() - Date.parse(iso)) / 1000;
+  return s < 90 ? Math.round(s) + ' s ago' : s < 5400 ? Math.round(s / 60) + ' min ago' : s < 172800 ? Math.round(s / 3600) + ' h ago' : Math.round(s / 86400) + ' days ago';
+}
+function dur(s) { return s < 3600 ? Math.round(s / 60) + ' min' : s < 172800 ? (s / 3600).toFixed(1) + ' h' : (s / 86400).toFixed(1) + ' days'; }
+function niceMax(v) { if (v <= 0) return 1; const p = Math.pow(10, Math.floor(Math.log10(v))); for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= v) return m * p; return 10 * p; }
+function labelIdx(n, every) {  // counted back from the last day, so the newest day is always labelled and labels never collide
+  const out = new Set(); for (let i = n - 1; i >= 0; i -= Math.max(1, every)) out.add(i); return out;
+}
+function daysOf(d) {  // every day in the window, so gaps show as gaps
+  const out = [], start = new Date(d.since + 'T00:00:00Z'), end = new Date(d.now);
+  for (let t = start; t <= end; t = new Date(t.getTime() + 86400000)) out.push(t.toISOString().slice(0, 10));
+  return out;
+}
+
+// ------------------------------------------------------------------ tooltip (enhances; every value is also in the table view)
+function showTip(evt, head, rows) {
+  const tip = $('#tip');
+  tip.textContent = '';
+  const h = document.createElement('div'); h.className = 'h'; h.textContent = head; tip.appendChild(h);
+  for (const [color, value, label] of rows) {
+    const r = document.createElement('div'); r.className = 'r';
+    const key = document.createElement('i'); key.style.background = color; r.appendChild(key);
+    const b = document.createElement('b'); b.textContent = value; r.appendChild(b);
+    const l = document.createElement('span'); l.className = 'l'; l.textContent = label; r.appendChild(l);
+    tip.appendChild(r);
+  }
+  tip.hidden = false;
+  const box = evt.target.getBoundingClientRect ? evt.target.getBoundingClientRect() : {left: evt.clientX, top: evt.clientY, width: 0};
+  const x = (evt.clientX ?? box.left + box.width / 2) + 14, y = (evt.clientY ?? box.top) + window.scrollY - 10;
+  const w = tip.offsetWidth;
+  tip.style.left = Math.min(x + window.scrollX, window.scrollX + document.documentElement.clientWidth - w - 8) + 'px';
+  tip.style.top = y + 'px';
+}
+function hideTip() { $('#tip').hidden = true; }
+
+// ------------------------------------------------------------------ banner, KPI tiles, checks
+function renderTop(d) {
+  const bad = d.checks.filter((c) => c.status !== 'good');
+  const title = bad.length ? bad.length + ' check' + (bad.length > 1 ? 's' : '') + ' need attention' : 'All checks passing';
+  $('#banner').innerHTML = ico(d.status) + '<div><div class="title">' + esc(TONE_WORD[d.status]) + ' · ' + esc(title) + '</div><div class="sub">model <b>' +
+    esc(d.model.version || 'not loaded') + '</b> · up ' + dur(d.uptime_s) + ' · last classification ' + ago(d.last_prediction_at) + '</div></div>';
+  const days = daysOf(d), byDay = Object.fromEntries(d.daily.map((x) => [x.day, x]));
+  const counts = days.map((k) => (byDay[k] ? byDay[k].n : 0)), total = counts.reduce((a, b) => a + b, 0);
+  const week = d.daily.slice(-7), n7 = week.reduce((a, x) => a + x.n, 0), u7 = week.reduce((a, x) => a + (x.by_status.unfamiliar || 0), 0);
+  const rate = n7 ? u7 / n7 : null, th = d.thresholds;
+  const rateTone = n7 < th.min_tiles_for_rates || rate == null ? 'good' : rate > th.unfamiliar_serious ? 'serious' : rate > th.unfamiliar_warn ? 'warning' : 'good';
+  const lat = d.latency_ms, latTone = lat.p95 == null ? 'good' : lat.p95 > th.latency_serious_ms ? 'serious' : lat.p95 > th.latency_warn_ms ? 'warning' : 'good';
+  const used = 1 - d.disk.free_bytes / d.disk.total_bytes, freeMb = d.disk.free_bytes / 1e6;
+  const diskTone = freeMb < 100 ? 'critical' : freeMb < th.disk_warn_mb ? 'warning' : 'good';
+  const meter = (frac, tone, ticks = []) => '<div class="meter" role="presentation"><div class="fill" style="width:' + Math.min(100, 100 * frac).toFixed(1) +
+    '%;background:var(--' + tone + ')"></div>' + ticks.map((t) => '<div class="tick" style="left:' + (100 * t).toFixed(1) + '%"></div>').join('') + '</div>';
+  $('#kpis').innerHTML =
+    '<div class="card tile"><div class="label">Tiles classified, last ' + d.window_days + ' days</div><div class="value">' + total.toLocaleString() + '</div>' + spark(counts) +
+      '<div class="muted">' + d.totals.tiles.toLocaleString() + ' tiles stored in total</div></div>' +
+    '<div class="card tile"><div class="label">Unfamiliar inputs, last 7 days</div><div class="value">' + pct(rate) + '</div>' +
+      meter((rate || 0) / 0.2, rateTone, [th.unfamiliar_warn / 0.2, th.unfamiliar_serious / 0.2]) +
+      '<div class="muted">' + ico(rateTone).replace('class="ico', 'style="width:14px;height:14px;font-size:9px;vertical-align:-2px" class="ico') + ' ' +
+      (n7 < th.min_tiles_for_rates ? 'only ' + n7 + ' tiles: too few to judge' : '≈1% expected · ticks at ' + pct(th.unfamiliar_warn, 0) + ' / ' + pct(th.unfamiliar_serious, 0)) + '</div></div>' +
+    '<div class="card tile"><div class="label">Model time per tile (p95, last ' + lat.n + ')</div><div class="value">' + (lat.p95 == null ? '–' : Math.round(lat.p95) + '<small> ms</small>') + '</div>' +
+      meter((lat.p95 || 0) / th.latency_serious_ms, latTone, [th.latency_warn_ms / th.latency_serious_ms]) +
+      '<div class="muted">p50 ' + (lat.p50 == null ? '–' : Math.round(lat.p50) + ' ms') + ' · budget ' + th.latency_warn_ms + ' ms</div></div>' +
+    '<div class="card tile"><div class="label">Review queue</div><div class="value">' + d.review_queue + '<small> waiting</small></div>' +
+      '<div class="muted" style="margin-top:14px">' + d.reviews.n + ' reviewed' + (d.reviews.n ? ', model agreed on ' + d.reviews.agree : '') + ' · <a href="/explore#review">open queue →</a></div></div>' +
+    '<div class="card tile"><div class="label">Disk free (data directory)</div><div class="value">' + bytes(d.disk.free_bytes) + '</div>' + meter(used, diskTone) +
+      '<div class="muted">' + pct(used, 0) + ' used of ' + bytes(d.disk.total_bytes) + '</div></div>';
+  $('#checks').innerHTML = d.checks.map((c) => '<li>' + ico(c.status) + '<span class="state">' + esc(TONE_WORD[c.status]) + '</span><div><div class="name">' +
+    esc(c.name) + '</div><div class="detail">' + esc(c.detail) + '</div></div></li>').join('');
+}
+
+function spark(values) {  // 14-point sparkline: de-emphasis hue, current period in the accent
+  const w = 160, h = 30, max = Math.max(1, ...values), step = values.length > 1 ? w / (values.length - 1) : 0;
+  const pts = values.map((v, i) => [i * step, h - 3 - (h - 6) * v / max]);
+  const last = pts[pts.length - 1];
+  return '<svg width="100%" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="none" aria-hidden="true" style="display:block;margin:4px 0">' +
+    '<polyline fill="none" stroke="' + css('--deemph') + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" points="' +
+    pts.map((p) => p.join(',')).join(' ') + '"/><circle cx="' + last[0] + '" cy="' + last[1] + '" r="3.5" fill="' + css('--series-1') + '"/></svg>';
+}
+
+// ------------------------------------------------------------------ chart 1: stacked columns, status colours
+function renderVolume(d) {
+  const box = $('#c1'), W = box.clientWidth || 500, H = 210, L = 38, R = 8, T = 10, B = 26, pw = W - L - R, ph = H - T - B;
+  const days = daysOf(d), byDay = Object.fromEntries(d.daily.map((x) => [x.day, x]));
+  const max = niceMax(Math.max(1, ...days.map((k) => (byDay[k] ? byDay[k].n : 0))));
+  const band = pw / days.length, cw = Math.min(24, band * 0.62), y = (v) => T + ph - ph * v / max;
+  let svg = '<svg width="' + W + '" height="' + H + '" role="img" aria-label="Classifications per day by status; values in the table view">';
+  for (let i = 0; i <= 4; i++) { const v = max * i / 4, yy = y(v); svg += '<line x1="' + L + '" x2="' + (W - R) + '" y1="' + yy + '" y2="' + yy + '" stroke="' + css(i ? '--grid' : '--axis') + '" stroke-width="1"/>' +
+    '<text x="' + (L - 6) + '" y="' + (yy + 4) + '" text-anchor="end">' + (+v.toFixed(1)).toLocaleString() + '</text>'; }
+  const labelled = labelIdx(days.length, Math.ceil(46 / band));
+  days.forEach((k, i) => {
+    const x = L + band * i + (band - cw) / 2, rec = byDay[k];
+    if (labelled.has(i)) svg += '<text x="' + (L + band * i + band / 2) + '" y="' + (H - 8) + '" text-anchor="middle">' + k.slice(5) + '</text>';
+    if (!rec) return;
+    let acc = 0;
+    const segs = STATUS.filter((s) => rec.by_status[s]);
+    svg += '<g class="col" data-i="' + i + '">';
+    segs.forEach((s, j) => {
+      const v = rec.by_status[s], y0 = y(acc), y1 = y(acc + v);
+      let hgt = Math.max(2, y0 - y1 - (j ? 2 : 0));             // 2px surface gap between stacked segments
+      const top = y0 - (j ? 2 : 0) - hgt, color = css('--' + STATUS_TONE[s]);
+      if (j === segs.length - 1) {                                // 4px rounded data-end, square at the baseline side
+        const r = Math.min(4, hgt, cw / 2);
+        svg += '<path fill="' + color + '" d="M' + x + ',' + (top + hgt) + 'V' + (top + r) + 'Q' + x + ',' + top + ' ' + (x + r) + ',' + top + 'H' + (x + cw - r) +
+          'Q' + (x + cw) + ',' + top + ' ' + (x + cw) + ',' + (top + r) + 'V' + (top + hgt) + 'Z"/>';
+      } else svg += '<rect x="' + x + '" y="' + top + '" width="' + cw + '" height="' + hgt + '" fill="' + color + '"/>';
+      acc += v;
+    });
+    svg += '</g><rect class="hit" tabindex="0" data-i="' + i + '" x="' + (L + band * i) + '" y="' + T + '" width="' + band + '" height="' + ph + '" aria-label="' +
+      esc(k + ': ' + rec.n + ' tiles') + '"/>';
+  });
+  box.innerHTML = svg + '</svg>';
+  $('#c1-legend').innerHTML = STATUS.map((s) => '<span>' + ico(STATUS_TONE[s]) + esc(nice(s)) + '</span>').join('');
+  const total = d.daily.reduce((a, x) => a + x.n, 0);
+  $('#c1-cap').textContent = total.toLocaleString() + ' classifications in the last ' + d.window_days + ' days (every attempt, including retries and failures).';
+  box.querySelectorAll('.hit').forEach((h) => {
+    const k = days[+h.dataset.i], rec = byDay[k];
+    const on = (e) => { box.querySelectorAll('.col').forEach((g) => g.classList.toggle('dim', g.dataset.i !== h.dataset.i));
+      showTip(e, k + ' · ' + rec.n + ' tiles', STATUS.filter((s) => rec.by_status[s]).reverse().map((s) => [css('--' + STATUS_TONE[s]), rec.by_status[s].toLocaleString(), nice(s)])); };
+    const off = () => { box.querySelectorAll('.col').forEach((g) => g.classList.remove('dim')); hideTip(); };
+    h.addEventListener('pointermove', on); h.addEventListener('pointerleave', off); h.addEventListener('focus', on); h.addEventListener('blur', off);
+  });
+  $('#c1-table').innerHTML = '<table><thead><tr><th>Day (UTC)</th>' + STATUS.map((s) => '<th class="n">' + esc(nice(s)) + '</th>').join('') + '<th class="n">Total</th></tr></thead><tbody>' +
+    d.daily.map((x) => '<tr><td>' + esc(x.day) + '</td>' + STATUS.map((s) => '<td class="n">' + (x.by_status[s] || 0) + '</td>').join('') + '<td class="n"><b>' + x.n + '</b></td></tr>').join('') +
+    '</tbody></table>';
+}
+
+// ------------------------------------------------------------------ chart 2: rate line with threshold references
+function renderRate(d) {
+  const box = $('#c2'), W = box.clientWidth || 500, H = 210, L = 38, R = 92, T = 10, B = 26, pw = W - L - R, ph = H - T - B;
+  const days = daysOf(d), byDay = Object.fromEntries(d.daily.map((x) => [x.day, x])), th = d.thresholds;
+  const pts = days.map((k, i) => (byDay[k] ? {i, k, rate: byDay[k].unfamiliar_rate, n: byDay[k].n, u: byDay[k].by_status.unfamiliar || 0,
+    ok: byDay[k].n >= MIN_RATE_TILES} : null)).filter(Boolean);
+  const good = pts.filter((p) => p.ok);
+  const max = Math.max(0.2, niceMax(Math.max(0, ...good.map((p) => p.rate)) * 1.15));  // tiny days never set the scale
+  const yv = (p) => y(Math.min(p.rate, max));
+  const band = days.length > 1 ? pw / (days.length - 1) : 0, x = (i) => L + (days.length > 1 ? band * i : pw / 2), y = (v) => T + ph - ph * v / max;
+  let svg = '<svg width="' + W + '" height="' + H + '" role="img" aria-label="Unfamiliar-input rate per day; values in the table view">';
+  for (let i = 0; i <= 4; i++) { const v = max * i / 4, yy = y(v); svg += '<line x1="' + L + '" x2="' + (L + pw) + '" y1="' + yy + '" y2="' + yy + '" stroke="' + css(i ? '--grid' : '--axis') + '"/>' +
+    '<text x="' + (L - 6) + '" y="' + (yy + 4) + '" text-anchor="end">' + Math.round(100 * v) + '%</text>'; }
+  const ref = (v, tone, label) => { const yy = y(v); return '<line x1="' + L + '" x2="' + (L + pw) + '" y1="' + yy + '" y2="' + yy + '" stroke="' + (tone ? css('--' + tone) : css('--muted')) +
+    '" stroke-width="1"/><text x="' + (L + pw + 6) + '" y="' + (yy + 4) + '">' + esc(label) + '</text>'; };
+  svg += ref(d.model.expected_unfamiliar_rate || 0.01, null, 'expected ≈' + pct(d.model.expected_unfamiliar_rate || 0.01, 0));
+  svg += ref(th.unfamiliar_warn, 'warning', '! warning ' + pct(th.unfamiliar_warn, 0));
+  svg += ref(th.unfamiliar_serious, 'serious', '▲ serious ' + pct(th.unfamiliar_serious, 0));
+  const labelled = labelIdx(days.length, Math.ceil(46 / Math.max(band, 1)));
+  days.forEach((k, i) => { if (labelled.has(i)) svg += '<text x="' + x(i) + '" y="' + (H - 8) + '" text-anchor="middle">' + k.slice(5) + '</text>'; });
+  let path = '';  // connect only consecutive days that have data: a missing day is a gap, not a dip
+  good.forEach((p, j) => { path += (j && good[j - 1].i === p.i - 1 ? 'L' : 'M') + x(p.i) + ',' + y(p.rate); });
+  svg += '<path d="' + path + '" fill="none" stroke="' + css('--series-1') + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+  svg += '<line id="c2-x" x1="0" x2="0" y1="' + T + '" y2="' + (T + ph) + '" stroke="' + css('--axis') + '" visibility="hidden"/>';
+  pts.forEach((p) => { svg += p.ok
+    ? '<circle cx="' + x(p.i) + '" cy="' + y(p.rate) + '" r="4" fill="' + css('--series-1') + '" stroke="' + css('--card') + '" stroke-width="2"/>'
+    : '<circle cx="' + x(p.i) + '" cy="' + yv(p) + '" r="4" fill="' + css('--card') + '" stroke="' + css('--series-1') + '" stroke-width="1.5"/>'; });
+  if (good.length) {  // end label; flips to the left of the point near the right edge so it never meets the reference labels
+    const lp = good[good.length - 1], right = x(lp.i) > L + pw - 50;
+    svg += '<text class="halo" x="' + (x(lp.i) + (right ? -8 : 8)) + '" y="' + (y(lp.rate) - 8) + '" text-anchor="' + (right ? 'end' : 'start') + '" style="fill:' + css('--text-2') + '">' + pct(lp.rate) + '</text>';
+  }
+  svg += '<rect class="hit" tabindex="0" x="' + L + '" y="' + T + '" width="' + pw + '" height="' + ph + '" aria-label="Unfamiliar rate per day"/>';
+  box.innerHTML = svg + '</svg>' + (pts.length ? '' : '<p class="muted">No classifications in this window yet.</p>') +
+    (pts.some((p) => !p.ok) ? '<p class="muted" style="margin:4px 0 0">Hollow points: fewer than ' + MIN_RATE_TILES + ' tiles that day, so the rate is noise ' +
+      '(shown capped at the top of the scale if higher; exact value in the tooltip and table).</p>' : '');
+  const hit = box.querySelector('.hit'), cross = box.querySelector('#c2-x');
+  const near = (clientX) => { const r = hit.getBoundingClientRect(), px = clientX - r.left + L; return pts.reduce((b, p) => (Math.abs(x(p.i) - px) < Math.abs(x(b.i) - px) ? p : b), pts[0]); };
+  const on = (e) => { if (!pts.length) return; const p = e.clientX != null ? near(e.clientX) : pts[pts.length - 1];
+    cross.setAttribute('x1', x(p.i)); cross.setAttribute('x2', x(p.i)); cross.setAttribute('visibility', 'visible');
+    showTip(e, p.k + ' · ' + p.n + ' tiles', [[css('--series-1'), pct(p.rate), 'unfamiliar (' + p.u + ')' + (p.ok ? '' : ': too few tiles to judge')]]); };
+  const off = () => { cross.setAttribute('visibility', 'hidden'); hideTip(); };
+  hit.addEventListener('pointermove', on); hit.addEventListener('pointerleave', off); hit.addEventListener('focus', on); hit.addEventListener('blur', off);
+  $('#c2-table').innerHTML = '<table><thead><tr><th>Day (UTC)</th><th class="n">Tiles</th><th class="n">Unfamiliar</th><th class="n">Rate</th></tr></thead><tbody>' +
+    d.daily.map((r) => '<tr><td>' + esc(r.day) + '</td><td class="n">' + r.n + '</td><td class="n">' + (r.by_status.unfamiliar || 0) + '</td><td class="n">' + pct(r.unfamiliar_rate) + '</td></tr>').join('') + '</tbody></table>';
+}
+
+// ------------------------------------------------------------------ chart 3: class mix, one hue, reference = balanced training mix
+function renderMix(d) {
+  const box = $('#c3'), classes = d.model.classes || Object.keys(d.class_mix.counts), n = d.class_mix.n;
+  const W = box.clientWidth || 500, L = 96, R = 56, row = 30, T = 6, H = T + row * classes.length + 22, pw = W - L - R;
+  const share = (c) => (n ? (d.class_mix.counts[c] || 0) / n : 0), ref = 1 / classes.length;
+  const max = Math.max(ref, ...classes.map(share)) * 1.1, xs = (v) => L + pw * v / max;
+  $('#c3-cap').textContent = n ? 'Latest ' + n + ' tiles, active model. The vertical line is the balanced training mix (' + pct(ref) + ' each); ' +
+    'a class drifting far from its usual share is worth a look.' : 'No classifications yet.';
+  let svg = '<svg width="' + W + '" height="' + H + '" role="img" aria-label="Predicted class mix; values in the table view">';
+  svg += '<line x1="' + L + '" x2="' + L + '" y1="' + T + '" y2="' + (H - 22) + '" stroke="' + css('--axis') + '"/>';
+  let bars = '', labels = '', hits = '';   // layers: bars, then the reference line, then value labels (with a halo), then hit areas
+  const rx = xs(ref);
+  classes.forEach((c, i) => {
+    const yy = T + row * i, bh = 18, by = yy + (row - bh) / 2, v = share(c), w = Math.max(v ? 2 : 0, xs(v) - L), r = Math.min(4, w);
+    labels += '<text x="' + (L - 8) + '" y="' + (by + 13) + '" text-anchor="end" style="fill:' + css('--text-2') + '">' + esc(c) + '</text>';
+    if (w) bars += '<path class="bar" data-i="' + i + '" fill="' + css('--series-1') + '" d="M' + L + ',' + by + 'H' + (L + w - r) + 'Q' + (L + w) + ',' + by + ' ' + (L + w) + ',' + (by + r) +
+      'V' + (by + bh - r) + 'Q' + (L + w) + ',' + (by + bh) + ' ' + (L + w - r) + ',' + (by + bh) + 'H' + L + 'Z"/>';
+    let lx = L + w + 6;
+    if (lx < rx + 4 && lx + 38 > rx - 2) lx = rx + 6;          // a label that would straddle the reference line moves past it
+    labels += '<text class="halo" x="' + lx + '" y="' + (by + 13) + '">' + pct(v) + '</text>';
+    hits += '<rect class="hit" tabindex="0" data-i="' + i + '" x="0" y="' + yy + '" width="' + W + '" height="' + row + '" aria-label="' + esc(c + ': ' + pct(v)) + '"/>';
+  });
+  const refLine = '<line x1="' + rx + '" x2="' + rx + '" y1="' + T + '" y2="' + (H - 22) + '" stroke="' + css('--text-2') + '" stroke-width="1"/>' +
+    '<text x="' + rx + '" y="' + (H - 6) + '" text-anchor="middle">training mix ' + pct(ref) + '</text>';
+  box.innerHTML = svg + bars + refLine + labels + hits + '</svg>';
+  box.querySelectorAll('.hit').forEach((h) => {
+    const c = classes[+h.dataset.i];
+    const on = (e) => { box.querySelectorAll('.bar').forEach((b) => b.classList.toggle('dim', b.dataset.i !== h.dataset.i));
+      showTip(e, c, [[css('--series-1'), pct(share(c)), (d.class_mix.counts[c] || 0) + ' of ' + n + ' tiles']]); };
+    const off = () => { box.querySelectorAll('.bar').forEach((b) => b.classList.remove('dim')); hideTip(); };
+    h.addEventListener('pointermove', on); h.addEventListener('pointerleave', off); h.addEventListener('focus', on); h.addEventListener('blur', off);
+  });
+  $('#c3-table').innerHTML = '<table><thead><tr><th>Class</th><th class="n">Tiles</th><th class="n">Share</th><th class="n">Training mix</th></tr></thead><tbody>' +
+    classes.map((c) => '<tr><td>' + esc(c) + '</td><td class="n">' + (d.class_mix.counts[c] || 0) + '</td><td class="n">' + pct(share(c)) + '</td><td class="n">' + pct(ref) + '</td></tr>').join('') + '</tbody></table>';
+}
+
+// ------------------------------------------------------------------ self-test + storage
+function renderSelftest(d) {
+  const st = d.model.self_test;
+  if (!st) { $('#st-cap').textContent = 'The model is not loaded, so the self-test could not run.'; $('#selftest').innerHTML = ''; return; }
+  const tol = (d.model && st.tiles.length) ? 1e-3 : null;
+  $('#st-cap').textContent = 'At startup the service re-classifies one known tile per class shipped inside the model artifact, and compares every probability ' +
+    'with the value recorded at training time (tolerance ' + tol + '). A failure means a corrupt file, a different runtime, or broken preprocessing.';
+  $('#selftest').innerHTML = st.tiles.map((t) => { const tone = t.ok ? 'good' : 'critical', name = t.tile.split('/').pop();
+    return '<div class="gold"><img alt="" loading="lazy" src="/v1/ops/selftest/' + encodeURIComponent(name) + '"><div class="row">' + ico(tone) + esc(t.expected) + '</div>' +
+      '<div class="muted">' + (t.ok ? 'reproduced' : 'got ' + esc(t.got)) + ' · <span style="white-space:nowrap">|Δp| ' + t.max_prob_diff.toExponential(1) + '</span></div></div>'; }).join('');
+}
+function renderStorage(d) {
+  const t = d.totals, row = (k, v) => '<dt>' + esc(k) + '</dt><dd>' + v + '</dd>';
+  $('#storage').innerHTML = row('Running since', esc(d.started_at.replace('T', ' ').slice(0, 19)) + ' UTC (' + dur(d.uptime_s) + ')') +
+    row('Last classification', d.last_prediction_at ? esc(d.last_prediction_at.replace('T', ' ').slice(0, 19)) + ' UTC (' + ago(d.last_prediction_at) + ')' : 'never') +
+    row('Tiles stored', t.tiles.toLocaleString() + ' (' + bytes(t.blob_bytes) + ' of raw PNGs)') +
+    row('Prediction rows', t.predictions.toLocaleString() + ' (append-only, all model versions)') +
+    row('Analyst reviews', t.reviews.toLocaleString()) +
+    row('Database file', bytes(t.db_bytes)) +
+    row('Latency, last ' + d.latency_ms.n, d.latency_ms.p50 == null ? '–' : 'p50 ' + Math.round(d.latency_ms.p50) + ' ms · p95 ' + Math.round(d.latency_ms.p95) + ' ms · max ' + Math.round(d.latency_ms.max) + ' ms') +
+    row('Decision policy', d.model.policy ? esc(d.model.policy.version) + ': min confidence ' + d.model.policy.min_confidence + ', OOD threshold ' + (+d.model.policy.ood_threshold).toFixed(3) : '–');
+}
+
+function render() {
+  if (!DATA) return;
+  renderTop(DATA); renderVolume(DATA); renderRate(DATA); renderMix(DATA); renderSelftest(DATA); renderStorage(DATA);
+  $('#updated').textContent = 'updated ' + new Date().toLocaleTimeString() + ', refreshes every 30 s';
+}
+
+async function load() {
+  const root = $('#root');
+  if (DATA) root.classList.add('stale');                    // refetch keeps the frame: dim, no skeleton, no jump
+  try {
+    const r = await fetch('/v1/ops', {credentials: 'same-origin'});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    DATA = await r.json();
+    render();
+  } catch (e) {
+    $('#banner').innerHTML = ico('critical') + '<div><div class="title">Critical · health data unavailable</div><div class="sub">' + esc(e.message) + '</div></div>';
+  } finally { root.classList.remove('stale'); }
+}
+
+document.querySelectorAll('.toggle').forEach((b) => b.addEventListener('click', () => {
+  const chart = $('#' + b.dataset.for), table = $('#' + b.dataset.for + '-table'), showTable = table.hidden;
+  table.hidden = !showTable; chart.hidden = showTable;
+  const legend = $('#' + b.dataset.for + '-legend'); if (legend) legend.hidden = showTable;
+  b.textContent = showTable ? 'Chart' : 'Table';
+}));
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(render, 150); });
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render);
+load(); setInterval(load, 30000);
+</script>
+</body>
+</html>

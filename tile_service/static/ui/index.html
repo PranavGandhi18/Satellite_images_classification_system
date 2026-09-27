@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tile Classifier</title>
+<link rel="icon" href="/static/swagger-ui/favicon-32x32.png">
+<style>
+  /* self-contained on purpose: no fonts, scripts or styles from the internet (the service runs offline) */
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5d6677; --line: #e2e5eb; --accent: #2f6fdf;
+    --ok: #1f8a4c; --ok-bg: #e5f5ec; --warn: #9a6200; --warn-bg: #fdf1dc; --odd: #7b3fc4; --odd-bg: #f1e8fb;
+    --bad: #c0392b; --bad-bg: #fbe7e5; --bar: #2f6fdf; --bar-bg: #edf0f5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171d; --card: #1d212a; --text: #e6e9ef; --muted: #9aa3b2; --line: #2d333f; --accent: #6ea0ff;
+      --ok: #5fd08f; --ok-bg: #173325; --warn: #f0b75a; --warn-bg: #3a2c12; --odd: #c49bff; --odd-bg: #2e2140;
+      --bad: #ff8a7d; --bad-bg: #3d1d1a; --bar: #6ea0ff; --bar-bg: #2a303b; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1060px; margin: 0 auto; padding: 24px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  header p { margin: 0; color: var(--muted); }
+  header nav { margin-top: 8px; font-size: 14px; }
+  header nav a { color: var(--accent); margin-right: 14px; text-decoration: none; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; margin-top: 20px; }
+  /* minmax(0, 1fr), not 1fr: a plain 1fr track grows to fit its widest content (the nowrap table), widening the whole
+     page on phones; with a 0 minimum the table scrolls inside its own box instead */
+  @media (max-width: 800px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .card { min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; }
+  .card h2 { margin: 0 0 10px; font-size: 16px; }
+  /* the drop zone is a <label> (so a click opens the file picker); labels are inline by default, and an inline box's
+     padding and border don't push neighbours away - it overlapped the heading above. display:block fixes that. */
+  .drop { display: block; border: 2px dashed var(--line); border-radius: 8px; padding: 18px; text-align: center; color: var(--muted); cursor: pointer; }
+  .drop.over { border-color: var(--accent); color: var(--accent); }
+  .samples { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 8px; margin-top: 12px; }
+  .sample { border: 1px solid var(--line); border-radius: 6px; padding: 4px; background: none; color: var(--text); cursor: pointer; text-align: center; font: 11px/1.3 system-ui, sans-serif; }
+  .sample:hover { border-color: var(--accent); }
+  .sample img, .preview { image-rendering: pixelated; display: block; width: 100%; aspect-ratio: 1; border-radius: 4px; }
+  .sample span { display: block; margin-top: 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .result-top { display: flex; gap: 14px; align-items: flex-start; }
+  .preview { width: 128px; flex: none; border: 1px solid var(--line); }
+  .label { font-size: 24px; font-weight: 650; margin: 0; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .confident { color: var(--ok); background: var(--ok-bg); } .needs_review { color: var(--warn); background: var(--warn-bg); }
+  .unfamiliar { color: var(--odd); background: var(--odd-bg); } .failed, .error { color: var(--bad); background: var(--bad-bg); }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; margin-top: 10px; font-size: 14px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+  .bars { margin-top: 14px; }
+  .bar { display: grid; grid-template-columns: 96px 1fr 56px; gap: 8px; align-items: center; font-size: 13px; margin: 3px 0; }
+  .bar .track { background: var(--bar-bg); border-radius: 4px; height: 12px; overflow: hidden; }
+  .bar .fill { background: var(--bar); height: 100%; min-width: 1px; }
+  .bar .v { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .muted { color: var(--muted); font-size: 13px; }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { color: var(--muted); font-weight: 600; }
+  .wide { grid-column: 1 / -1; }
+  .note { margin-top: 10px; padding: 8px 10px; border-radius: 6px; background: var(--bar-bg); font-size: 13px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Offline land-use tile classifier</h1>
+    <p>Upload a 64×64 Sentinel-2 RGB PNG, or click a sample. Each tile goes through <code>POST /v1/tiles</code>: it is validated, classified by the local ONNX model and stored.</p>
+    <nav><a href="/explore"><b>Query stored results →</b></a><a href="/docs">API docs</a><a href="/health">Health</a><a href="/v1/predictions">Stored predictions (JSON)</a><span class="muted" id="model"></span></nav>
+  </header>
+
+  <div class="grid">
+    <section class="card">
+      <h2>1. Pick a tile</h2>
+      <label class="drop" id="drop">
+        <input type="file" id="file" accept="image/png" hidden>
+        Drop a PNG here or <u>choose a file</u><br><span class="muted">must be 64×64, 3-band RGB (anything else is rejected with a reason)</span>
+      </label>
+      <div class="samples" id="samples"></div>
+      <p class="muted">Samples are eval tiles (true label shown) plus two synthetic tiles the model has never seen.</p>
+    </section>
+
+    <section class="card" id="result">
+      <h2>2. Result</h2>
+      <p class="muted" id="placeholder">No tile classified yet.</p>
+    </section>
+
+    <section class="card wide">
+      <h2>Recently stored predictions</h2>
+      <div class="table-wrap"><table id="recent"><thead><tr><th>Tile</th><th>Label</th><th>Status</th><th>Confidence</th><th>OOD score</th><th>Flags</th><th>Stored at (UTC)</th></tr></thead><tbody></tbody></table></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const $ = (sel) => document.querySelector(sel);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const pct = (x) => (x == null ? '–' : (100 * x).toFixed(1) + '%');
+const STATUS_TEXT = {
+  confident: 'confident: accepted as-is',
+  needs_review: 'needs review: low confidence or a quality flag',
+  unfamiliar: 'unfamiliar: unlike anything in training',
+  failed: 'failed: stored, inference error',
+};
+
+async function classify(blob, filename, sample) {
+  const url = URL.createObjectURL(blob);
+  const form = new FormData();
+  form.append('file', blob, filename);
+  const box = $('#result');
+  box.innerHTML = '<h2>2. Result</h2><p class="muted">Classifying ' + esc(filename) + '…</p>';
+  let r, body;
+  try {
+    r = await fetch('/v1/tiles', {method: 'POST', body: form, credentials: 'same-origin'});
+    body = await r.json();
+  } catch (e) {
+    box.innerHTML = '<h2>2. Result</h2><p class="badge error">request failed: ' + esc(e) + '</p>';
+    return;
+  }
+  if (!r.ok && r.status !== 500) {
+    const detail = typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail);
+    box.innerHTML = '<h2>2. Result</h2><div class="result-top"><img class="preview" src="' + url + '" alt=""><div>' +
+      '<p class="badge error">HTTP ' + r.status + ': rejected</p><p>' + esc(detail) + '</p></div></div>';
+    return;
+  }
+  const probs = Object.entries(body.probabilities || {}).sort((a, b) => b[1] - a[1]);
+  const truth = sample && sample.true_label ? (sample.true_label === body.label ? ' <span class="badge confident">matches true label</span>'
+                                                                               : ' <span class="badge error">true label: ' + esc(sample.true_label) + '</span>') : '';
+  box.innerHTML = '<h2>2. Result</h2>' +
+    '<div class="result-top"><img class="preview" src="' + url + '" alt="tile">' +
+    '<div><p class="label">' + esc(body.label ?? '—') + '</p>' +
+    '<span class="badge ' + esc(body.status) + '">' + esc(STATUS_TEXT[body.status] || body.status) + '</span>' + truth +
+    '<dl class="kv">' +
+    '<dt>confidence</dt><dd>' + pct(body.confidence) + ' (margin ' + pct(body.margin) + ')</dd>' +
+    '<dt>OOD score</dt><dd>' + (body.ood_score == null ? '–' : body.ood_score.toFixed(3)) + '</dd>' +
+    '<dt>quality flags</dt><dd>' + (body.quality_flags.length ? esc(body.quality_flags.join(', ')) : 'none') + '</dd>' +
+    '<dt>model time</dt><dd>' + (body.latency_ms == null ? '–' : body.latency_ms.toFixed(1) + ' ms') + '</dd>' +
+    '<dt>HTTP</dt><dd>' + r.status + (body.idempotent_hit ? ' (already stored: same bytes, same model, not re-run)' : ' (new, stored)') + '</dd>' +
+    '<dt>tile id</dt><dd><a href="/v1/tiles/' + esc(body.tile_id) + '">' + esc(body.tile_id.slice(0, 16)) + '…</a></dd>' +
+    '</dl></div></div>' +
+    '<div class="bars">' + probs.map(([c, p]) =>
+      '<div class="bar"><span>' + esc(c) + '</span><div class="track"><div class="fill" style="width:' + (100 * p).toFixed(2) + '%"></div></div><span class="v">' + pct(p) + '</span></div>').join('') + '</div>' +
+    (sample && sample.note ? '<p class="note">' + esc(sample.note) + '</p>' : '') +
+    (body.error ? '<p class="badge error">' + esc(body.error) + '</p>' : '');
+  loadRecent();
+}
+
+async function loadRecent() {
+  try {
+    const rows = await (await fetch('/v1/predictions?limit=10', {credentials: 'same-origin'})).json();
+    $('#recent tbody').innerHTML = rows.map((p) => '<tr><td>' + esc(p.source_name || p.tile_id.slice(0, 12)) + '</td><td>' + esc(p.label ?? '—') +
+      '</td><td><span class="badge ' + esc(p.status) + '">' + esc(p.status) + '</span></td><td>' + pct(p.confidence) + '</td><td>' +
+      (p.ood_score == null ? '–' : p.ood_score.toFixed(3)) + '</td><td>' + esc((p.quality_flags || []).join(', ') || '–') + '</td><td>' +
+      esc((p.created_at || '').replace('T', ' ').slice(0, 19)) + '</td></tr>').join('') || '<tr><td colspan="7" class="muted">nothing stored yet</td></tr>';
+  } catch (e) { /* table stays as-is */ }
+}
+
+async function init() {
+  try {
+    const h = await (await fetch('/healthz', {credentials: 'same-origin'})).json();
+    $('#model').textContent = 'model ' + (h.model_version || 'not loaded') + ' · ' + h.status;
+  } catch (e) { $('#model').textContent = 'health check failed'; }
+  const samples = await (await fetch('/static/ui/samples.json')).json();
+  $('#samples').innerHTML = samples.map((s, i) => '<button class="sample" data-i="' + i + '" title="' + esc(s.note || s.file) + '">' +
+    '<img src="/static/ui/samples/' + encodeURIComponent(s.file) + '" alt="">' +
+    '<span>' + esc(s.true_label || (s.file.startsWith('synthetic') ? s.file.replace('synthetic_', '').replace('.png', '') : s.file)) + '</span></button>').join('');
+  document.querySelectorAll('.sample').forEach((b) => b.addEventListener('click', async () => {
+    const s = samples[+b.dataset.i];
+    const blob = await (await fetch('/static/ui/samples/' + encodeURIComponent(s.file))).blob();
+    classify(blob, s.file, s);
+  }));
+  const drop = $('#drop'), input = $('#file');
+  input.addEventListener('change', () => input.files[0] && classify(input.files[0], input.files[0].name, null));
+  drop.addEventListener('dragover', (e) => { e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', () => drop.classList.remove('over'));
+  drop.addEventListener('drop', (e) => { e.preventDefault(); drop.classList.remove('over'); const f = e.dataTransfer.files[0]; if (f) classify(f, f.name, null); });
+  loadRecent();
+}
+init();
+</script>
+</body>
+</html>

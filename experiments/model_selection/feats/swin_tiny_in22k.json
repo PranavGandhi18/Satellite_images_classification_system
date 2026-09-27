@@ -1,0 +1,30 @@
+{
+ "key": "swin_tiny_in22k",
+ "group": "ImageNet Transformer",
+ "family": "Swin",
+ "input": 224,
+ "dim": 768,
+ "C": 0.1,
+ "cv_acc": 0.9638095238095238,
+ "eval_acc": 0.9571428571428572,
+ "eval_ci": [
+  0.9205691228738757,
+  0.9772917236592593
+ ],
+ "eval_macro_f1": 0.957443196292512,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 0.9333333333333333,
+  "Forest": 1.0,
+  "Highway": 0.8666666666666667,
+  "Industrial": 0.9333333333333333,
+  "Residential": 1.0,
+  "River": 1.0,
+  "SeaLake": 0.9666666666666667
+ },
+ "params_m": 27.519354,
+ "gflops": 8.979597312,
+ "cpu_ms_1thr": 298.1850076466799,
+ "cpu_ms_4thr": 296.404704451561,
+ "wall_s": 337.2887580394745
+}

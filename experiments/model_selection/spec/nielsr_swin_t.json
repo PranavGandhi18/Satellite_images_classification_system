@@ -1,0 +1,51 @@
+{
+ "key": "nielsr_swin_t",
+ "repo": "nielsr/swin-tiny-patch4-window7-224-finetuned-eurosat",
+ "trained_on": "EuroSAT (nielsr/eurosat-demo, random 90/10)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 27.527044,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.9904761904761905,
+   "acc_all1260": 0.9912698412698413,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.9904761904761905,
+   "acc_all1260": 0.9920634920634921,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.9904761904761905,
+ "acc_all1260": 0.9920634920634921,
+ "in_vocab_rate": 0.9944444444444445,
+ "unmapped_mass": 0.01110774278640747,
+ "per_class_recall_all": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9888888888888889,
+  "Industrial": 1.0,
+  "Residential": 0.9888888888888889,
+  "River": 0.9888888888888889,
+  "SeaLake": 0.9777777777777777
+ },
+ "wall_s": 115.39750003814697,
+ "torch_ms_1thr": 163.6682190001011,
+ "torch_ms_4thr": 80.94841614365578
+}

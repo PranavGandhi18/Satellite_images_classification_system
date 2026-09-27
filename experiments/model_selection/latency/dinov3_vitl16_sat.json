@@ -1,0 +1,8 @@
+{
+ "key": "dinov3_vitl16_sat",
+ "input": 224,
+ "torch_ms_1thr": 1871.9772771000862,
+ "torch_ms_4thr": 698.4238885343075,
+ "torch_tiles_per_s_4thr_b32": 1.2650782368880429,
+ "onnx_error": "scaled_dot_product_attention(): argument 'is_causal' must be bool, not Tensor"
+}

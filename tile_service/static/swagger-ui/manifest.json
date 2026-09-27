@@ -1,0 +1,23 @@
+{
+  "package": "swagger-ui-dist",
+  "version": "5.33.0",
+  "licence": "Apache-2.0",
+  "files": {
+    "swagger-ui-bundle.js": {
+      "source": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.33.0/swagger-ui-bundle.js",
+      "sha256": "62df541529080464a7660adc793eab7128c6193ce3be24ddc1e0e0a4a63edc2f"
+    },
+    "swagger-ui.css": {
+      "source": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.33.0/swagger-ui.css",
+      "sha256": "1ac324f7dcd27e4b9386b4bd6421271ec147e922a22c05ba24b11515e9aa6321"
+    },
+    "favicon-32x32.png": {
+      "source": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.33.0/favicon-32x32.png",
+      "sha256": "3ed612f41e050ca5e7000cad6f1cbe7e7da39f65fca99c02e99e6591056e5837"
+    },
+    "LICENSE": {
+      "source": "https://cdn.jsdelivr.net/npm/swagger-ui-dist@5.33.0/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    }
+  }
+}

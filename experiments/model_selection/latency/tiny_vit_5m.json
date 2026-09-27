@@ -1,0 +1,12 @@
+{
+ "key": "tiny_vit_5m",
+ "input": 224,
+ "torch_ms_1thr": 61.475107446312904,
+ "torch_ms_4thr": 33.07565115392208,
+ "torch_tiles_per_s_4thr_b32": 20.220119930728636,
+ "onnx_mb": 20.855658,
+ "onnx_max_abs_diff": 1.4230608940124512e-06,
+ "onnx_ms_1thr": 40.46270810067654,
+ "onnx_ms_4thr": 20.2720295637846,
+ "onnx_tiles_per_s_4thr_b32": 72.85226014832715
+}

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Query results · Tile Classifier</title>
+<link rel="icon" href="/static/swagger-ui/favicon-32x32.png">
+<style>
+  /* self-contained on purpose: no fonts, scripts or styles from the internet (the service runs offline) */
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #1d2330; --muted: #5d6677; --line: #e2e5eb; --accent: #2f6fdf; --accent-bg: #e8effc;
+    --ok: #1f8a4c; --ok-bg: #e5f5ec; --warn: #9a6200; --warn-bg: #fdf1dc; --odd: #7b3fc4; --odd-bg: #f1e8fb;
+    --bad: #c0392b; --bad-bg: #fbe7e5; --bar: #2f6fdf; --bar-raw: #aab3c2; --bar-bg: #edf0f5; --input: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #14171d; --card: #1d212a; --text: #e6e9ef; --muted: #9aa3b2; --line: #2d333f; --accent: #6ea0ff; --accent-bg: #1f2c44;
+      --ok: #5fd08f; --ok-bg: #173325; --warn: #f0b75a; --warn-bg: #3a2c12; --odd: #c49bff; --odd-bg: #2e2140;
+      --bad: #ff8a7d; --bad-bg: #3d1d1a; --bar: #6ea0ff; --bar-raw: #5b6474; --bar-bg: #2a303b; --input: #161a21; color-scheme: dark; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 1180px; margin: 0 auto; padding: 24px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 22px; }
+  header p { margin: 0; color: var(--muted); }
+  .links { margin-top: 8px; font-size: 14px; }
+  .links a { color: var(--accent); margin-right: 14px; text-decoration: none; }
+  a { color: var(--accent); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0 14px; }
+  .tabs button { border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 6px 14px; font: inherit; font-size: 14px; cursor: pointer; }
+  .tabs button[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .tabs button small { opacity: .75; margin-right: 4px; }
+  .card { min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+  .card h2 { margin: 0 0 10px; font-size: 16px; }
+  .muted { color: var(--muted); font-size: 13px; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: flex-end; }
+  .field { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--muted); min-width: 0; }
+  .field input, .field select, textarea { font: inherit; font-size: 14px; color: var(--text); background: var(--input); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; min-width: 0; }
+  .field input[type=number] { width: 88px; } .field input[type=date] { width: 150px; } .field input.wide { width: 230px; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 13px; margin-top: 10px; }
+  .btn { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 6px; padding: 6px 12px; cursor: pointer; text-decoration: none; display: inline-block; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn:disabled { opacity: .45; cursor: default; }
+  .badge { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+  .confident { color: var(--ok); background: var(--ok-bg); } .needs_review { color: var(--warn); background: var(--warn-bg); }
+  .unfamiliar { color: var(--odd); background: var(--odd-bg); } .failed, .error { color: var(--bad); background: var(--bad-bg); }
+  .reviewed { color: var(--accent); background: var(--accent-bg); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; vertical-align: middle; }
+  th { color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr.click { cursor: pointer; } tbody tr.click:hover { background: var(--bar-bg); }
+  img.thumb { width: 36px; height: 36px; image-rendering: pixelated; border-radius: 3px; display: block; }
+  img.big { width: 192px; max-width: 100%; aspect-ratio: 1; image-rendering: pixelated; border-radius: 6px; border: 1px solid var(--line); display: block; }
+  .pager { display: flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 13px; }
+  .summary { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .kv { display: grid; grid-template-columns: max-content 1fr; gap: 2px 12px; font-size: 14px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+  .split { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 18px; }
+  @media (max-width: 700px) { .split { grid-template-columns: minmax(0, 1fr); } }
+  .pbar { display: grid; grid-template-columns: 96px minmax(0, 1fr) 54px; gap: 8px; align-items: center; font-size: 13px; margin: 2px 0; }
+  .track { background: var(--bar-bg); border-radius: 4px; height: 10px; overflow: hidden; position: relative; }
+  .fill { background: var(--bar); height: 100%; }
+  .agg-bars { position: relative; height: 26px; min-width: 160px; }
+  .agg-bars .raw, .agg-bars .cor { position: absolute; left: 0; height: 9px; border-radius: 3px; }
+  .agg-bars .raw { top: 2px; background: var(--bar-raw); } .agg-bars .cor { top: 14px; background: var(--bar); }
+  .agg-bars .ci { position: absolute; top: 18px; height: 1px; background: var(--text); }
+  .agg-bars .ci::before, .agg-bars .ci::after { content: ""; position: absolute; top: -4px; width: 1px; height: 9px; background: var(--text); }
+  .agg-bars .ci::before { left: 0; } .agg-bars .ci::after { right: 0; }
+  .legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); margin: 6px 0; flex-wrap: wrap; }
+  .legend i { display: inline-block; width: 18px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: middle; }
+  .note { padding: 8px 10px; border-radius: 6px; background: var(--bar-bg); font-size: 13px; margin-top: 10px; }
+  .queue { display: grid; gap: 10px; }
+  .qitem { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; border: 1px solid var(--line); border-radius: 8px; padding: 10px; }
+  .qitem img { width: 88px; height: 88px; image-rendering: pixelated; border-radius: 4px; }
+  .qitem .labels { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .qitem .labels button { font: inherit; font-size: 12px; padding: 3px 9px; border-radius: 5px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .qitem .labels button.pred { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+  .qitem .labels button.extra { border-style: dashed; }
+  .qitem .labels button:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  pre { background: var(--bar-bg); border-radius: 6px; padding: 10px; overflow-x: auto; font-size: 12.5px; margin: 6px 0 12px; }
+  code { font-size: 12.5px; }
+  .toast { position: fixed; bottom: 18px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 8px 14px; border-radius: 8px; font-size: 14px; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .toast.show { opacity: .95; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Query stored results</h1>
+    <p>Everything the service has classified and stored, following DESIGN_NOTE.md §4.3: look up a tile, filter, aggregate
+      with the classifier's known confusions corrected, and work through the review queue.</p>
+    <div class="links"><a href="/">← Classify a tile</a><a href="/docs">API docs</a><a href="/health">Health</a><span class="muted" id="model"></span></div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button data-tab="lookup" role="tab"><small>1</small>Lookup</button>
+    <button data-tab="filter" role="tab"><small>2</small>Filter</button>
+    <button data-tab="aggregate" role="tab"><small>3</small>Aggregate</button>
+    <button data-tab="review" role="tab"><small>4</small>Review queue <span id="qcount"></span></button>
+    <button data-tab="tools" role="tab">Export &amp; your own tools</button>
+  </nav>
+
+  <!-- shared filter bar: Filter, Aggregate, Review queue -->
+  <form class="card" id="filters" autocomplete="off">
+    <div class="row">
+      <label class="field">Label<select name="label"><option value="">any</option></select></label>
+      <label class="field" id="status-field">Status<select name="status"><option value="">any</option></select></label>
+      <label class="field">Confidence ≥<input type="number" name="min_confidence" min="0" max="1" step="0.01" placeholder="0"></label>
+      <label class="field">Confidence ≤<input type="number" name="max_confidence" min="0" max="1" step="0.01" placeholder="1"></label>
+      <label class="field">Received from<input type="date" name="received_from"></label>
+      <label class="field">Received to<input type="date" name="received_to"></label>
+      <label class="field">Quality flag<select name="flag"><option value="">any</option><option value="none">none</option></select></label>
+      <label class="field">Reviewed<select name="reviewed"><option value="">any</option><option value="true">reviewed</option><option value="false">not reviewed</option></select></label>
+      <label class="field">Search<input class="wide" name="q" placeholder="tile-id prefix or file name"></label>
+      <label class="field" id="sort-field">Sort<select name="sort">
+        <option value="newest">newest first</option><option value="oldest">oldest first</option>
+        <option value="confidence_asc">least confident first</option><option value="confidence_desc">most confident first</option>
+        <option value="margin_asc">smallest margin first</option><option value="ood_desc">most unfamiliar first</option></select></label>
+      <button class="btn primary" type="submit">Apply</button>
+      <!-- not id="reset": inside a form that would shadow form.reset() -->
+      <button class="btn" type="button" id="reset-filters">Reset</button>
+    </div>
+    <details id="geo"><summary>Area and capture time (level 5: only matches tiles uploaded with coordinates / capture time)</summary>
+      <div class="row" style="margin-top:8px">
+        <label class="field">Min lon<input type="number" name="min_lon" step="any" min="-180" max="180"></label>
+        <label class="field">Min lat<input type="number" name="min_lat" step="any" min="-90" max="90"></label>
+        <label class="field">Max lon<input type="number" name="max_lon" step="any" min="-180" max="180"></label>
+        <label class="field">Max lat<input type="number" name="max_lat" step="any" min="-90" max="90"></label>
+        <label class="field">Captured from<input type="date" name="captured_from"></label>
+        <label class="field">Captured to<input type="date" name="captured_to"></label>
+      </div>
+      <p class="muted">Polygon search and land-use change between dates are designed but not built: they need coordinates and repeat
+        captures on every tile, which the sample data doesn't have.</p>
+    </details>
+  </form>
+
+  <section class="card" data-panel="lookup">
+    <h2>1 · Lookup</h2>
+    <form class="row" id="lookup-form"><label class="field">Tile id (or a unique prefix)<input class="wide" name="id" required placeholder="e.g. f2b34ff571dd…"></label>
+      <button class="btn primary">Look up</button><span class="muted">Tip: click any row in Filter or any tile in the Review queue.</span></form>
+    <div id="lookup-out" style="margin-top:14px"></div>
+  </section>
+
+  <section class="card" data-panel="filter">
+    <div class="summary"><h2 style="margin:0">2 · Filter</h2><span class="muted" id="f-count"></span><span style="flex:1"></span>
+      <a class="btn" id="csv" href="#">Export these as CSV</a></div>
+    <div class="table-wrap"><table><thead><tr><th></th><th>Tile</th><th>Label</th><th>Status</th><th class="num">Conf.</th><th class="num">Margin</th>
+      <th class="num">OOD</th><th>Flags</th><th>Review</th><th>Received (UTC)</th></tr></thead><tbody id="f-rows"></tbody></table></div>
+    <div class="pager"><button class="btn" id="prev">← Prev</button><button class="btn" id="next">Next →</button><span class="muted" id="f-page"></span></div>
+  </section>
+
+  <section class="card" data-panel="aggregate">
+    <h2>3 · Aggregate</h2>
+    <div id="agg-out"><p class="muted">Loading…</p></div>
+  </section>
+
+  <section class="card" data-panel="review">
+    <div class="summary"><h2 style="margin:0">4 · Review queue</h2><span class="muted" id="r-count"></span><span style="flex:1"></span>
+      <label class="field">Your name (stored with each label)<input id="reviewer" placeholder="optional" maxlength="64"></label></div>
+    <p class="muted" style="margin-top:0">Unreviewed tiles the policy did not accept: <b>unfamiliar</b> first (most unlike the training data first),
+      then <b>needs review</b> (least decisive first). Click the correct label; the model's guess is outlined. <i>Other</i> = none of the
+      classes, <i>Unusable</i> = cloud, no-data or not assessable. Labels are stored append-only as ground truth.</p>
+    <div class="queue" id="queue"></div>
+    <div class="pager"><button class="btn" id="rmore">Load more</button></div>
+  </section>
+
+  <section class="card" data-panel="tools">
+    <h2>Export &amp; your own tools</h2>
+    <p><b>CSV.</b> <a id="csv2" href="#">Download every stored prediction as CSV</a> (one row per tile, all 7 class probabilities, flags,
+      and the latest review). The Filter tab's export button applies the current filters.</p>
+    <p><b>Read-only SQL.</b> The results live in one SQLite file. Analysts can query it with any SQLite client, opened read-only so the
+      service's writes are never blocked:</p>
+    <pre>sqlite3 "file:/workspace/galaxi_button/data/tiles.db?mode=ro"
+
+-- tiles (one row per image), predictions (append-only), reviews (append-only), models
+-- views: current_predictions (latest per tile and model), current_reviews (latest per tile)
+SELECT p.label, p.status, COUNT(*) FROM current_predictions p GROUP BY 1, 2 ORDER BY 1, 2;
+SELECT t.source_name, p.label, p.confidence, r.label AS analyst
+FROM current_predictions p JOIN tiles t USING (tile_id) LEFT JOIN current_reviews r USING (tile_id)
+WHERE r.label IS NOT NULL AND r.label != p.label;          -- where analysts disagreed with the model</pre>
+    <p><b>API.</b> Every view on this page is one call away (scripts send the access key as <code>X-API-Key</code>):</p>
+    <pre id="api-examples"></pre>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const pct = (x, d = 1) => (x == null ? '–' : (100 * x).toFixed(d) + '%');
+const num = (x, d = 3) => (x == null ? '–' : Number(x).toFixed(d));
+const when = (s) => esc((s || '').replace('T', ' ').slice(0, 19));
+const badge = (s) => '<span class="badge ' + esc(s) + '">' + esc(String(s).replace('_', ' ')) + '</span>';
+const img = (id, cls = 'thumb') => '<img class="' + cls + '" loading="lazy" alt="" src="/v1/tiles/' + encodeURIComponent(id) + '/image">';
+const PAGE = 25;
+let META = null, fOffset = 0, qOffset = 0;
+
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 2200); }
+
+async function api(path, opts = {}) {
+  const r = await fetch(path, Object.assign({credentials: 'same-origin'}, opts));
+  let body = null;
+  try { body = await r.json(); } catch (e) { /* not JSON */ }
+  if (!r.ok) throw new Error((body && (typeof body.detail === 'string' ? body.detail : JSON.stringify(body.detail))) || ('HTTP ' + r.status));
+  return {body, total: r.headers.get('X-Total-Count')};
+}
+
+// ---------------------------------------------------------------- filters <-> URL
+function formParams() {
+  const f = new FormData($('#filters')), p = new URLSearchParams();
+  for (const [k, v] of f.entries()) if (v !== '' && !['min_lon', 'min_lat', 'max_lon', 'max_lat'].includes(k)) p.set(k, v);
+  const box = ['min_lon', 'min_lat', 'max_lon', 'max_lat'].map((k) => f.get(k));
+  if (box.every((v) => v !== '')) p.set('bbox', box.join(','));
+  return p;
+}
+function setForm(p) {
+  $('#filters').reset();
+  for (const [k, v] of p.entries()) {
+    if (k === 'bbox') { v.split(',').forEach((x, i) => { $('#filters').elements[['min_lon', 'min_lat', 'max_lon', 'max_lat'][i]].value = x; }); $('#geo').open = true; }
+    else if ($('#filters').elements[k]) $('#filters').elements[k].value = v;
+    if (k.startsWith('captured')) $('#geo').open = true;
+  }
+}
+function queryFor(tab, extra = {}) {
+  const p = formParams();
+  if (tab !== 'filter') p.delete('sort');
+  if (tab === 'review') p.delete('status');
+  for (const [k, v] of Object.entries(extra)) p.set(k, v);
+  return p.toString();
+}
+function parseHash() {
+  const [tab, qs] = (location.hash.slice(1) || 'filter').split('?');
+  return {tab: ['lookup', 'filter', 'aggregate', 'review', 'tools'].includes(tab) ? tab : 'filter', params: new URLSearchParams(qs || '')};
+}
+function go(tab, params) { const qs = params ? params.toString() : ''; location.hash = tab + (qs ? '?' + qs : ''); }
+
+// ---------------------------------------------------------------- router
+async function route() {
+  const {tab, params} = parseHash();
+  document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.tab === tab)));
+  document.querySelectorAll('[data-panel]').forEach((s) => { s.hidden = s.dataset.panel !== tab; });
+  $('#filters').hidden = !['filter', 'aggregate', 'review'].includes(tab);
+  $('#sort-field').hidden = tab !== 'filter';
+  $('#status-field').hidden = tab === 'review';
+  if (tab === 'lookup') { const id = params.get('id'); if (id) { $('#lookup-form').elements.id.value = id; lookup(id); } return; }
+  if (tab === 'tools') { renderTools(); return; }
+  setForm(params);
+  if (tab === 'filter') { fOffset = +(params.get('offset') || 0); loadFilter(); }
+  if (tab === 'aggregate') loadAggregate();
+  if (tab === 'review') { qOffset = 0; $('#queue').innerHTML = ''; loadQueue(); }
+}
+
+// ---------------------------------------------------------------- 1. lookup
+async function lookup(id) {
+  const out = $('#lookup-out');
+  out.innerHTML = '<p class="muted">Looking up…</p>';
+  try {
+    let tid = id.trim().toLowerCase();
+    if (tid.length < 64) {  // resolve a prefix (or file name) through the filter endpoint
+      const m = (await api('/v1/predictions?limit=2&q=' + encodeURIComponent(id.trim()))).body;
+      if (m.length !== 1) { out.innerHTML = '<p class="badge error">' + (m.length ? 'more than one tile matches: type more characters' : 'no tile matches') + '</p>'; return; }
+      tid = m[0].tile_id;
+    }
+    const h = (await api('/v1/tiles/' + encodeURIComponent(tid))).body;
+    renderLookup(h);
+  } catch (e) { out.innerHTML = '<p class="badge error">' + esc(e.message) + '</p>'; }
+}
+
+function renderLookup(h) {
+  const t = h.tile, preds = h.predictions, revs = h.reviews || [];
+  const cur = [...preds].reverse().find((p) => p.model_version === META.model_version) || preds[preds.length - 1];
+  const probs = Object.entries((cur && cur.probabilities) || {}).sort((a, b) => b[1] - a[1]);
+  const lastRev = revs[revs.length - 1];
+  $('#lookup-out').innerHTML =
+    '<div class="split"><div>' + img(t.tile_id, 'big') + '</div><div>' +
+    (cur ? '<p style="margin:0;font-size:22px;font-weight:650">' + esc(cur.label ?? '—') + ' ' + badge(cur.status) +
+      (lastRev ? ' <span class="badge reviewed">analyst: ' + esc(lastRev.label) + '</span>' : '') + '</p>' : '') +
+    '<dl class="kv" style="margin-top:8px">' +
+    '<dt>tile id</dt><dd><code>' + esc(t.tile_id) + '</code></dd>' +
+    '<dt>file</dt><dd>' + esc(t.source_name || '–') + '</dd>' +
+    '<dt>received</dt><dd>' + when(t.received_at) + ' UTC</dd>' +
+    '<dt>captured</dt><dd>' + (t.captured_at ? when(t.captured_at) + ' UTC' : '–') + '</dd>' +
+    '<dt>location</dt><dd>' + (t.lat != null ? num(t.lat, 5) + ', ' + num(t.lon, 5) : '–') + '</dd>' +
+    '<dt>sensor</dt><dd>' + esc(t.sensor || '–') + '</dd>' +
+    '<dt>quality flags</dt><dd>' + (t.quality_flags.length ? esc(t.quality_flags.join(', ')) : 'none') + '</dd>' +
+    (cur ? '<dt>confidence</dt><dd>' + pct(cur.confidence) + ' (margin ' + pct(cur.margin) + ')</dd><dt>OOD score</dt><dd>' + num(cur.ood_score) +
+      ' (threshold ' + num(META.policy.ood_threshold) + ')</dd>' : '') +
+    '</dl>' +
+    '<div style="margin-top:10px">' + probs.map(([c, p]) => '<div class="pbar"><span>' + esc(c) + '</span><div class="track"><div class="fill" style="width:' +
+      (100 * p).toFixed(2) + '%"></div></div><span class="muted" style="text-align:right">' + pct(p) + '</span></div>').join('') + '</div>' +
+    '</div></div>' +
+    '<h2 style="margin-top:18px">Prediction history <span class="muted">(append-only: every model version, retries and failures)</span></h2>' +
+    '<div class="table-wrap"><table><thead><tr><th>When (UTC)</th><th>Model</th><th>Policy</th><th>Status</th><th>Label</th><th class="num">Conf.</th><th class="num">OOD</th><th class="num">ms</th><th>Error</th></tr></thead><tbody>' +
+    preds.map((p) => '<tr><td>' + when(p.created_at) + '</td><td>' + esc(p.model_version) + '</td><td>' + esc(p.policy_version) + '</td><td>' + badge(p.status) +
+      '</td><td>' + esc(p.label ?? '—') + '</td><td class="num">' + pct(p.confidence) + '</td><td class="num">' + num(p.ood_score) + '</td><td class="num">' +
+      num(p.latency_ms, 1) + '</td><td>' + esc(p.error || '') + '</td></tr>').join('') + '</tbody></table></div>' +
+    '<h2 style="margin-top:18px">Analyst reviews</h2>' +
+    (revs.length ? '<div class="table-wrap"><table><thead><tr><th>When (UTC)</th><th>Label</th><th>Reviewer</th><th>Note</th></tr></thead><tbody>' +
+      revs.map((r) => '<tr><td>' + when(r.created_at) + '</td><td>' + esc(r.label) + '</td><td>' + esc(r.reviewer || '–') + '</td><td>' + esc(r.note || '') + '</td></tr>').join('') +
+      '</tbody></table></div>' : '<p class="muted">Not reviewed yet.</p>') +
+    '<form class="row" id="review-form" style="margin-top:10px"><label class="field">Label<select name="label">' +
+    META.review_labels.map((l) => '<option' + (cur && l === cur.label ? ' selected' : '') + '>' + esc(l) + '</option>').join('') + '</select></label>' +
+    '<label class="field">Note<input class="wide" name="note" maxlength="500" placeholder="optional"></label>' +
+    '<button class="btn primary">Save review</button></form>';
+  $('#review-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    try {
+      await saveLabel(t.tile_id, f.get('label'), f.get('note'));
+      toast('Review saved');
+      lookup(t.tile_id);
+    } catch (err) { toast(err.message); }
+  });
+}
+
+async function saveLabel(tileId, label, note) {
+  const reviewer = $('#reviewer').value.trim() || null;
+  return api('/v1/tiles/' + encodeURIComponent(tileId) + '/label', {method: 'POST', headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({label, note: note || null, reviewer})});
+}
+
+// ---------------------------------------------------------------- 2. filter
+async function loadFilter() {
+  const qs = queryFor('filter', {limit: PAGE, offset: fOffset});
+  $('#csv').href = '/v1/predictions.csv?' + queryFor('filter');
+  const rows = $('#f-rows');
+  try {
+    const {body, total} = await api('/v1/predictions?' + qs);
+    const n = +total;
+    $('#f-count').textContent = n + ' tile' + (n === 1 ? '' : 's') + ' match';
+    rows.innerHTML = body.map((r) => '<tr class="click" data-id="' + esc(r.tile_id) + '"><td>' + img(r.tile_id) + '</td><td>' + esc(r.source_name || r.tile_id.slice(0, 12)) +
+      '</td><td>' + esc(r.label ?? '—') + '</td><td>' + badge(r.status) + '</td><td class="num">' + pct(r.confidence) + '</td><td class="num">' + pct(r.margin) +
+      '</td><td class="num">' + num(r.ood_score) + '</td><td>' + esc(r.quality_flags.join(', ') || '–') + '</td><td>' +
+      (r.review_label ? '<span class="badge reviewed">' + esc(r.review_label) + '</span>' : '–') + '</td><td>' + when(r.received_at) + '</td></tr>').join('') ||
+      '<tr><td colspan="10" class="muted">Nothing matches these filters.</td></tr>';
+    rows.querySelectorAll('tr.click').forEach((tr) => tr.addEventListener('click', () => go('lookup', new URLSearchParams({id: tr.dataset.id}))));
+    $('#prev').disabled = fOffset === 0;
+    $('#next').disabled = fOffset + PAGE >= n;
+    $('#f-page').textContent = n ? (fOffset + 1) + '–' + Math.min(fOffset + PAGE, n) + ' of ' + n : '';
+  } catch (e) { rows.innerHTML = '<tr><td colspan="10"><span class="badge error">' + esc(e.message) + '</span></td></tr>'; }
+}
+
+// ---------------------------------------------------------------- 3. aggregate
+async function loadAggregate() {
+  const out = $('#agg-out');
+  try {
+    const s = (await api('/v1/stats?' + queryFor('aggregate'))).body;
+    const c = s.correction, max = Math.max(0.01, ...s.by_class.map((r) => Math.max(r.raw_share, c.available ? r.corrected_high : 0)));
+    const w = (x) => (100 * x / max).toFixed(2) + '%';
+    const statuses = Object.entries(s.by_status).filter(([, n]) => n).map(([st, n]) => badge(st) + ' ' + n).join(' &nbsp; ');
+    let html = '<div class="summary"><b>' + s.n_classified + '</b><span class="muted">classified tiles match</span>' + (statuses ? '&nbsp; ' + statuses : '') + '</div>';
+    if (!s.n_classified) { out.innerHTML = html + '<p class="muted">Nothing to aggregate for these filters.</p>'; return; }
+    html += '<div class="legend"><span><i style="background:var(--bar-raw)"></i>raw share (counts predicted labels)</span>' +
+      (c.available ? '<span><i style="background:var(--bar)"></i>corrected share, with 95% interval</span>' : '') + '</div>' +
+      '<div class="table-wrap"><table><thead><tr><th>Class</th><th class="num">Raw count</th><th class="num">Raw share</th>' +
+      (c.available ? '<th class="num">Corrected share</th><th class="num">95% interval</th><th class="num">≈ Corrected count</th>' : '') +
+      '<th style="width:34%"></th></tr></thead><tbody>' +
+      s.by_class.map((r) => '<tr><td>' + esc(r.label) + '</td><td class="num">' + r.raw_count + '</td><td class="num">' + pct(r.raw_share) + '</td>' +
+        (c.available ? '<td class="num"><b>' + pct(r.corrected_share) + '</b></td><td class="num">' + pct(r.corrected_low) + ' – ' + pct(r.corrected_high) +
+          '</td><td class="num">' + r.corrected_count.toFixed(1) + '</td>' : '') +
+        '<td><div class="agg-bars"><div class="raw" style="width:' + w(r.raw_share) + '"></div>' +
+        (c.available ? '<div class="cor" style="width:' + w(r.corrected_share) + '"></div><div class="ci" style="left:' + w(r.corrected_low) +
+          ';width:calc(' + w(r.corrected_high) + ' - ' + w(r.corrected_low) + ')"></div>' : '') + '</div></td></tr>').join('') +
+      '</tbody></table></div>' +
+      '<div class="note">' + (c.available
+        ? '<b>Why two numbers?</b> Raw shares treat every predicted label as true. The corrected shares undo the classifier\'s measured confusions, '
+          + 'measured on ' + esc(c.source) + ', using P(predicted | true) so the correction still holds '
+          + 'when the real class mix is different from that balanced set. The interval covers both the uncertainty in that confusion matrix and the '
+          + 'sampling noise of the tiles counted here, so small selections get wide intervals.'
+        : '<b>Raw counts only:</b> ' + esc(c.reason) + '.') + '</div>';
+    if (s.by_day.length) {
+      html += '<h2 style="margin-top:18px">Per day received <span class="muted">(raw counts)</span></h2><div class="table-wrap"><table><thead><tr><th>Day (UTC)</th>' +
+        s.classes.map((k) => '<th class="num">' + esc(k) + '</th>').join('') + '<th class="num">Total</th></tr></thead><tbody>' +
+        s.by_day.map((d) => '<tr><td>' + esc(d.day) + '</td>' + s.classes.map((k) => '<td class="num">' + (d.counts[k] || '') + '</td>').join('') +
+          '<td class="num"><b>' + Object.values(d.counts).reduce((a, b) => a + b, 0) + '</b></td></tr>').join('') + '</tbody></table></div>';
+    }
+    const rv = s.reviews;
+    html += '<h2 style="margin-top:18px">Analyst ground truth</h2>' + (rv.n
+      ? '<p>' + rv.n + ' of these tiles have been reviewed. The analyst agreed with the model on <b>' + rv.agree + '</b> (' + pct(rv.agreement) + ').' +
+        ' Labels given: ' + Object.entries(rv.by_label).map(([k, n]) => esc(k) + ' ' + n).join(', ') + '.</p>' +
+        '<p class="muted">Reviewed tiles are mostly the ones the policy flagged, so this is agreement on the hard cases, not the overall accuracy.</p>'
+      : '<p class="muted">No reviews among these tiles yet. Labels from the review queue will show up here.</p>');
+    out.innerHTML = html;
+  } catch (e) { out.innerHTML = '<p class="badge error">' + esc(e.message) + '</p>'; }
+}
+
+// ---------------------------------------------------------------- 4. review queue
+async function loadQueue() {
+  const box = $('#queue');
+  try {
+    const {body, total} = await api('/v1/review-queue?' + queryFor('review', {limit: 20, offset: qOffset}));
+    setQueueCount(+total);
+    if (!body.length && !qOffset) box.innerHTML = '<p class="muted">Nothing waiting. Every tile the policy flagged (for these filters) has been reviewed.</p>';
+    for (const r of body) box.insertAdjacentHTML('beforeend', queueItem(r));
+    qOffset += body.length;
+    $('#rmore').hidden = qOffset >= +total;
+  } catch (e) { box.innerHTML = '<p class="badge error">' + esc(e.message) + '</p>'; }
+}
+function setQueueCount(n) { $('#r-count').textContent = n + ' waiting'; $('#qcount').textContent = n ? '(' + n + ')' : ''; $('#r-count').dataset.n = n; }
+function queueItem(r) {
+  return '<div class="qitem" data-id="' + esc(r.tile_id) + '"><a href="#lookup?id=' + esc(r.tile_id) + '" title="details">' + img(r.tile_id, '') + '</a><div>' +
+    '<div><b>' + esc(r.label ?? '—') + '</b> ' + badge(r.status) + ' <span class="muted">' + esc(r.source_name || r.tile_id.slice(0, 12)) + '</span></div>' +
+    '<div class="muted">' + esc(r.reason) + '</div>' +
+    '<div class="muted">confidence ' + pct(r.confidence) + ' · margin ' + pct(r.margin) + ' · OOD ' + num(r.ood_score) +
+    (r.quality_flags.length ? ' · flags ' + esc(r.quality_flags.join(', ')) : '') + '</div>' +
+    '<div class="labels">' + META.review_labels.map((l) => '<button type="button" data-label="' + esc(l) + '" class="' + (l === r.label ? 'pred' : '') +
+      (META.classes.includes(l) ? '' : ' extra') + '">' + esc(l) + '</button>').join('') + '</div></div></div>';
+}
+$('#queue').addEventListener('click', async (e) => {
+  const b = e.target.closest('button[data-label]');
+  if (!b) return;
+  const item = b.closest('.qitem');
+  item.querySelectorAll('button').forEach((x) => { x.disabled = true; });
+  try {
+    await saveLabel(item.dataset.id, b.dataset.label, null);
+    item.remove();
+    qOffset = Math.max(0, qOffset - 1);
+    setQueueCount(Math.max(0, +$('#r-count').dataset.n - 1));
+    toast('Labelled ' + b.dataset.label);
+    if (!$('#queue').children.length) loadQueue();
+  } catch (err) { toast(err.message); item.querySelectorAll('button').forEach((x) => { x.disabled = false; }); }
+});
+
+// ---------------------------------------------------------------- tools
+function renderTools() {
+  const base = location.origin;
+  $('#csv2').href = '/v1/predictions.csv';
+  $('#api-examples').textContent =
+    'KEY=<access key>   # only if the service runs with an access key\n' +
+    'curl -H "X-API-Key: $KEY" "' + base + '/v1/tiles/<tile_id>"                              # 1 lookup\n' +
+    'curl -H "X-API-Key: $KEY" "' + base + '/v1/predictions?label=SeaLake&status=confident&received_from=2026-09-01"  # 2 filter\n' +
+    'curl -H "X-API-Key: $KEY" "' + base + '/v1/predictions.csv?status=needs_review" -o review.csv\n' +
+    'curl -H "X-API-Key: $KEY" "' + base + '/v1/stats?received_from=2026-09-01"                   # 3 aggregate\n' +
+    'curl -H "X-API-Key: $KEY" "' + base + '/v1/review-queue?limit=20"                            # 4 review queue\n' +
+    'curl -H "X-API-Key: $KEY" -H "Content-Type: application/json" -d \'{"label": "River"}\' "' + base + '/v1/tiles/<tile_id>/label"';
+}
+
+// ---------------------------------------------------------------- wiring
+$('#filters').addEventListener('submit', (e) => { e.preventDefault(); const {tab} = parseHash(); const p = new URLSearchParams(queryFor(tab)); if (tab === 'filter') p.set('sort', formParams().get('sort') || 'newest'); go(tab, p); });
+$('#reset-filters').addEventListener('click', () => { $('#filters').reset(); go(parseHash().tab, null); });
+$('#prev').addEventListener('click', () => { const p = new URLSearchParams(queryFor('filter')); p.set('sort', formParams().get('sort') || 'newest'); p.set('offset', Math.max(0, fOffset - PAGE)); go('filter', p); });
+$('#next').addEventListener('click', () => { const p = new URLSearchParams(queryFor('filter')); p.set('sort', formParams().get('sort') || 'newest'); p.set('offset', fOffset + PAGE); go('filter', p); });
+$('#rmore').addEventListener('click', loadQueue);
+$('#lookup-form').addEventListener('submit', (e) => { e.preventDefault(); go('lookup', new URLSearchParams({id: e.target.elements.id.value.trim()})); });
+document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => {
+  const keep = ['filter', 'aggregate', 'review'].includes(b.dataset.tab) ? new URLSearchParams(queryFor(b.dataset.tab)) : null;
+  go(b.dataset.tab, keep);
+}));
+try { $('#reviewer').value = localStorage.getItem('reviewer') || ''; } catch (e) { /* storage unavailable */ }
+$('#reviewer').addEventListener('change', () => { try { localStorage.setItem('reviewer', $('#reviewer').value.trim()); } catch (e) { /* ignore */ } });
+window.addEventListener('hashchange', route);
+
+(async function init() {
+  try {
+    META = (await api('/v1/meta')).body;
+  } catch (e) { document.querySelector('main').insertAdjacentHTML('beforeend', '<p class="badge error">' + esc(e.message) + '</p>'); return; }
+  $('#model').textContent = 'model ' + META.model_version + (META.calibration.available ? ' · aggregate correction from ' + META.calibration.n + ' labelled tiles' : ' · no aggregate calibration');
+  const opts = (sel, vals) => { const s = $('#filters').elements[sel]; vals.forEach((v) => s.insertAdjacentHTML('beforeend', '<option value="' + esc(v) + '">' + esc(String(v).replace('_', ' ')) + '</option>')); };
+  opts('label', META.classes); opts('status', META.statuses); opts('flag', META.quality_flags);
+  api('/v1/review-queue?limit=1').then(({total}) => setQueueCount(+total)).catch(() => {});
+  route();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+ "key": "cm93_resnet50",
+ "repo": "cm93/resnet50-eurosat",
+ "trained_on": "EuroSAT (cm93/eurosat 80/10/10)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "PermanentCrop",
+  "Pasture"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 23.528522,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.9571428571428572,
+   "acc_all1260": 0.9484126984126984,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.9952380952380953,
+   "acc_all1260": 0.9968253968253968,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.9952380952380953,
+ "acc_all1260": 0.9968253968253968,
+ "in_vocab_rate": 0.9920634920634921,
+ "unmapped_mass": 0.01040351390838623,
+ "per_class_recall_all": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 1.0,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.9833333333333333,
+  "SeaLake": 0.9944444444444445
+ },
+ "acc_on_our_tiles_in_train_split": [
+  0.9990215264187867,
+  1022
+ ],
+ "acc_on_our_tiles_in_validation_split": [
+  1.0,
+  106
+ ],
+ "acc_on_our_tiles_in_test_split": [
+  0.9772727272727273,
+  132
+ ],
+ "wall_s": 333.3909423351288,
+ "torch_ms_1thr": 125.50250813364983,
+ "torch_ms_4thr": 57.512637227773666
+}

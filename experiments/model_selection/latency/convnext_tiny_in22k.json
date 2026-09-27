@@ -1,0 +1,12 @@
+{
+ "key": "convnext_tiny_in22k",
+ "input": 224,
+ "torch_ms_1thr": 150.5651045590639,
+ "torch_ms_4thr": 65.51078148186207,
+ "torch_tiles_per_s_4thr_b32": 10.140976851282684,
+ "onnx_mb": 111.358096,
+ "onnx_max_abs_diff": 2.7418136596679688e-05,
+ "onnx_ms_1thr": 122.86017276346684,
+ "onnx_ms_4thr": 44.039295986294746,
+ "onnx_tiles_per_s_4thr_b32": 25.289858853661617
+}

@@ -1,0 +1,32 @@
+892 train / 158 validation tiles; backbone vit_small_patch16_dinov3.lvd1689m @ 112px; 32 threads
+epoch  0  loss 1.897  val acc 0.791  33s
+epoch  1  loss 1.225  val acc 0.905  68s
+epoch  2  loss 0.694  val acc 0.911  102s
+epoch  3  loss 0.542  val acc 0.987  136s
+epoch  4  loss 0.482  val acc 0.987  169s
+epoch  5  loss 0.467  val acc 0.975  206s
+epoch  6  loss 0.454  val acc 0.987  243s
+epoch  7  loss 0.452  val acc 0.994  279s
+epoch  8  loss 0.450  val acc 0.994  314s
+epoch  9  loss 0.451  val acc 0.994  347s
+epoch 10  loss 0.449  val acc 0.994  382s
+epoch 11  loss 0.449  val acc 0.994  417s
+epoch 12  loss 0.448  val acc 0.994  450s
+epoch 13  loss 0.448  val acc 0.994  481s
+epoch 14  loss 0.448  val acc 0.994  513s
+/workspace/galaxi_button/training/train.py:209: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+{
+ "version": "dinov3_vits16-112px-20260926-182432",
+ "val_accuracy": 0.9936708860759493,
+ "best_epoch": 14,
+ "temperature": 0.5755679715359265,
+ "min_confidence": 0.5,
+ "val_coverage": 1.0,
+ "ood_threshold": 0.18762223422527313,
+ "parity": {
+  "max_abs_logit_diff": 4.509091377258301e-05,
+  "argmax_agreement": 1.0
+ },
+ "train_minutes": 8.6,
+ "activated": true
+}

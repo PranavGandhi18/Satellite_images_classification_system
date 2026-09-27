@@ -1,0 +1,31 @@
+{
+ "key": "remoteclip_vitb32",
+ "group": "Vision-language (RS)",
+ "family": "ViT",
+ "input": 224,
+ "dim": 512,
+ "C": 0.1,
+ "cv_acc": 0.9514285714285714,
+ "eval_acc": 0.9285714285714286,
+ "eval_ci": [
+  0.8855054345225578,
+  0.9562391091022563
+ ],
+ "eval_macro_f1": 0.9298540450672625,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 0.9,
+  "Forest": 1.0,
+  "Highway": 0.9333333333333333,
+  "Industrial": 0.9333333333333333,
+  "Residential": 1.0,
+  "River": 0.8333333333333334,
+  "SeaLake": 0.9
+ },
+ "zeroshot_acc": 0.4523809523809524,
+ "params_m": 151.277313,
+ "gflops": 5.89430784,
+ "cpu_ms_1thr": 478.92492450773716,
+ "cpu_ms_4thr": 206.9926466792822,
+ "wall_s": 163.48216462135315
+}

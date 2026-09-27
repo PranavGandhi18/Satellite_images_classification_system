@@ -1,0 +1,30 @@
+{
+ "key": "dinov2_vitb14",
+ "group": "Self-supervised (general)",
+ "family": "ViT",
+ "input": 224,
+ "dim": 768,
+ "C": 0.1,
+ "cv_acc": 0.9619047619047618,
+ "eval_acc": 0.9476190476190476,
+ "eval_ci": [
+  0.9086523067849005,
+  0.9705031054454606
+ ],
+ "eval_macro_f1": 0.9471939711046135,
+ "acc_at_80cov": 0.9880952380952381,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 1.0,
+  "Highway": 0.8333333333333334,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.9,
+  "SeaLake": 0.9333333333333333
+ },
+ "params_m": 85.724928,
+ "gflops": 43.887624192,
+ "cpu_ms_1thr": 1388.059051707387,
+ "cpu_ms_4thr": 399.8024109750986,
+ "wall_s": 592.5831203460693
+}

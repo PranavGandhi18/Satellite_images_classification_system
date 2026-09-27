@@ -1,0 +1,21 @@
+{
+ "model": "vit_small_patch16_224.augreg_in21k_ft_in1k",
+ "input": 112,
+ "backbone_lr": 5e-05,
+ "epochs": 15,
+ "best_epoch": 14,
+ "val_acc": 0.9873417615890503,
+ "eval_acc": 0.976190447807312,
+ "acc_at_80cov": 1.0,
+ "train_minutes_cpu": 25.61455927292506,
+ "threads": 16,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666388511658,
+  "Forest": 1.0,
+  "Highway": 1.0,
+  "Industrial": 0.9666666388511658,
+  "Residential": 1.0,
+  "River": 0.9666666388511658,
+  "SeaLake": 0.9333333373069763
+ }
+}

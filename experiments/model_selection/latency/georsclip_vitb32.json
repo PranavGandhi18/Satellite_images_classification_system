@@ -1,0 +1,12 @@
+{
+ "key": "georsclip_vitb32",
+ "input": 224,
+ "torch_ms_1thr": 164.96333852410316,
+ "torch_ms_4thr": 62.46020272374153,
+ "torch_tiles_per_s_4thr_b32": 21.33411696451382,
+ "onnx_mb": 351.780456,
+ "onnx_max_abs_diff": 3.546476364135742e-06,
+ "onnx_ms_1thr": 111.29789799451828,
+ "onnx_ms_4thr": 39.43370282649994,
+ "onnx_tiles_per_s_4thr_b32": 34.2346168686377
+}

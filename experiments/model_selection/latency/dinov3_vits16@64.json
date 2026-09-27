@@ -1,0 +1,12 @@
+{
+ "key": "dinov3_vits16@64",
+ "input": 64,
+ "torch_ms_1thr": 29.327237978577614,
+ "torch_ms_4thr": 15.132419764995575,
+ "torch_tiles_per_s_4thr_b32": 186.20772894121956,
+ "onnx_mb": 86.556185,
+ "onnx_max_abs_diff": 9.834766387939453e-07,
+ "onnx_ms_1thr": 15.24771936237812,
+ "onnx_ms_4thr": 7.5211841613054276,
+ "onnx_tiles_per_s_4thr_b32": 254.4768142601953
+}

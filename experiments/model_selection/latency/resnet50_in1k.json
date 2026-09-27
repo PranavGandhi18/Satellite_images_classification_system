@@ -1,0 +1,12 @@
+{
+ "key": "resnet50_in1k",
+ "input": 224,
+ "torch_ms_1thr": 126.32069922983646,
+ "torch_ms_4thr": 54.604917764663696,
+ "torch_tiles_per_s_4thr_b32": 13.195834292256489,
+ "onnx_mb": 93.95001,
+ "onnx_max_abs_diff": 3.2782554626464844e-06,
+ "onnx_ms_1thr": 92.41287037730217,
+ "onnx_ms_4thr": 28.909366577863693,
+ "onnx_tiles_per_s_4thr_b32": 45.65581683705642
+}

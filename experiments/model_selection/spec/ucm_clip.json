@@ -1,0 +1,47 @@
+{
+ "key": "ucm_clip",
+ "repo": "NemesisAlm/clip-fine-tuned-satellite",
+ "trained_on": "UC Merced (aerial, 0.3 m); zero-shot with our class names",
+ "n_src_labels": 7,
+ "unmapped_labels": [],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 151.277313,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.7095238095238096,
+   "acc_all1260": 0.680952380952381,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.7,
+   "acc_all1260": 0.6928571428571428,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.7,
+ "acc_all1260": 0.6928571428571428,
+ "in_vocab_rate": 1.0,
+ "unmapped_mass": 0.0,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.85,
+  "Forest": 0.6444444444444445,
+  "Highway": 0.07222222222222222,
+  "Industrial": 0.6222222222222222,
+  "Residential": 0.7833333333333333,
+  "River": 0.9111111111111111,
+  "SeaLake": 0.9666666666666667
+ },
+ "wall_s": 270.66677379608154,
+ "torch_ms_1thr": 175.66881328821182,
+ "torch_ms_4thr": 73.67021217942238
+}

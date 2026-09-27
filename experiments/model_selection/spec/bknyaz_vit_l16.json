@@ -1,0 +1,51 @@
+{
+ "key": "bknyaz_vit_l16",
+ "repo": "bknyaz/vitl-eurosat-in21k",
+ "trained_on": "EuroSAT (jonathan-roberts1, 90/10)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "herbaceous vegetation",
+  "pasture",
+  "permanent crop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 303.311882,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 1.0,
+   "acc_all1260": 0.9968253968253968,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 1.0,
+   "acc_all1260": 0.9984126984126984,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 1.0,
+ "acc_all1260": 0.9984126984126984,
+ "in_vocab_rate": 0.9992063492063492,
+ "unmapped_mass": 0.00241011381149292,
+ "per_class_recall_all": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9944444444444445,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 1.0,
+  "SeaLake": 0.9944444444444445
+ },
+ "wall_s": 1197.9989376068115,
+ "torch_ms_1thr": 1860.2195493876934,
+ "torch_ms_4thr": 689.0401057898998
+}

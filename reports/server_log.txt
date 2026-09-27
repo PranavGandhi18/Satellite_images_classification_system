@@ -1,0 +1,452 @@
+INFO:     Started server process [35386]
+INFO:     Waiting for application startup.
+2026-09-26 18:27:24,720 INFO tile_service serving model dinov3_vits16-112px-20260926-182432 from /workspace/galaxi_button/models/active
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55664 - "GET /healthz HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55678 - "GET /healthz HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33150 - "GET /healthz HTTP/1.1" 200 OK
+2026-09-26 18:27:31,546 INFO tile_service tile=570d0a5e4ae8 status=confident label=River conf=0.9952 ood=0.0568 latency_ms=29.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,584 INFO tile_service tile=f2b34ff571dd status=confident label=Highway conf=0.9968 ood=0.0267 latency_ms=27.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,616 INFO tile_service tile=8b5f6607dfb0 status=confident label=Industrial conf=0.9967 ood=0.0133 latency_ms=23.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,648 INFO tile_service tile=14023a2df03e status=confident label=SeaLake conf=0.9955 ood=0.008 latency_ms=23.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,680 INFO tile_service tile=577cf5838b72 status=confident label=River conf=0.9947 ood=0.0351 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,712 INFO tile_service tile=a2e149838450 status=confident label=Highway conf=0.9966 ood=0.036 latency_ms=22.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,744 INFO tile_service tile=b0cd2eaae48e status=confident label=Highway conf=0.9957 ood=0.0224 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,777 INFO tile_service tile=4641f80f2326 status=confident label=SeaLake conf=0.9962 ood=0.0057 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,811 INFO tile_service tile=748b26c14c9f status=confident label=Highway conf=0.9728 ood=0.1455 latency_ms=25.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,844 INFO tile_service tile=1e81b48af994 status=confident label=AnnualCrop conf=0.9963 ood=0.0311 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,877 INFO tile_service tile=060d37411db1 status=confident label=Forest conf=0.9959 ood=0.0059 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,911 INFO tile_service tile=786145f0389a status=confident label=Highway conf=0.9953 ood=0.0198 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,945 INFO tile_service tile=e06c6175707f status=confident label=River conf=0.9835 ood=0.1528 latency_ms=24.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:31,978 INFO tile_service tile=a6098235b82d status=confident label=SeaLake conf=0.9961 ood=0.013 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,011 INFO tile_service tile=553be0389f6d status=confident label=River conf=0.9952 ood=0.0268 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,045 INFO tile_service tile=2a756a308c79 status=confident label=Forest conf=0.9942 ood=0.0235 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,078 INFO tile_service tile=4c811462958d status=confident label=Highway conf=0.9925 ood=0.0711 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,111 INFO tile_service tile=4e273da48878 status=confident label=River conf=0.9943 ood=0.0366 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,145 INFO tile_service tile=33d2bf4189f8 status=confident label=SeaLake conf=0.9758 ood=0.1213 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,178 INFO tile_service tile=013669431c71 status=confident label=AnnualCrop conf=0.9962 ood=0.0225 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,211 INFO tile_service tile=cb7b540e529b status=confident label=Industrial conf=0.996 ood=0.0227 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,244 INFO tile_service tile=c9732f79bf66 status=confident label=Industrial conf=0.9961 ood=0.0186 latency_ms=24.4 flags=['saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,278 INFO tile_service tile=05e5434be1e1 status=confident label=SeaLake conf=0.9958 ood=0.0003 latency_ms=24.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,357 INFO tile_service tile=5d3c8edd877c status=confident label=River conf=0.9958 ood=0.0407 latency_ms=58.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,393 INFO tile_service tile=eac693eadeb0 status=confident label=Residential conf=0.9961 ood=0.0183 latency_ms=26.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,427 INFO tile_service tile=bc6e3f23a2af status=confident label=SeaLake conf=0.9958 ood=0.0002 latency_ms=25.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,461 INFO tile_service tile=6877f47a24a8 status=confident label=Forest conf=0.9963 ood=0.0058 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,495 INFO tile_service tile=ec28be2c2419 status=confident label=Industrial conf=0.9951 ood=0.0264 latency_ms=25.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,529 INFO tile_service tile=e87cb3600057 status=confident label=Highway conf=0.9744 ood=0.1043 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,563 INFO tile_service tile=24b22e273ec0 status=confident label=Industrial conf=0.996 ood=0.0138 latency_ms=25.2 flags=['saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,597 INFO tile_service tile=b9579958d6ef status=confident label=Residential conf=0.9956 ood=0.0185 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,631 INFO tile_service tile=ff8e0fd2f43c status=confident label=River conf=0.9952 ood=0.0599 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,665 INFO tile_service tile=c20098bf845f status=confident label=Forest conf=0.9954 ood=0.0145 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,699 INFO tile_service tile=c46a37021698 status=confident label=SeaLake conf=0.9957 ood=0.0029 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,733 INFO tile_service tile=3f81a1a24a46 status=confident label=Industrial conf=0.996 ood=0.0154 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,767 INFO tile_service tile=342fbbe40d56 status=confident label=Industrial conf=0.9909 ood=0.0633 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,801 INFO tile_service tile=d7adb213b2d7 status=confident label=Highway conf=0.9941 ood=0.0462 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,835 INFO tile_service tile=4410f5cd2392 status=confident label=AnnualCrop conf=0.9964 ood=0.0211 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,869 INFO tile_service tile=c62509bafeb3 status=confident label=Forest conf=0.996 ood=0.008 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,903 INFO tile_service tile=eb50079f2b1d status=confident label=AnnualCrop conf=0.9963 ood=0.0229 latency_ms=25.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,937 INFO tile_service tile=8e98508a7570 status=confident label=Residential conf=0.9964 ood=0.0118 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:32,970 INFO tile_service tile=aa12e222034a status=confident label=River conf=0.9954 ood=0.0654 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,005 INFO tile_service tile=99ba4ca1703c status=confident label=Highway conf=0.9949 ood=0.0285 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,038 INFO tile_service tile=8d151218f95f status=confident label=Forest conf=0.9953 ood=0.0209 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,072 INFO tile_service tile=cfab9df7b7f5 status=confident label=Industrial conf=0.9963 ood=0.0166 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,106 INFO tile_service tile=1eaa87319060 status=confident label=AnnualCrop conf=0.9957 ood=0.0174 latency_ms=25.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,140 INFO tile_service tile=c34a8d0350e0 status=confident label=Residential conf=0.9946 ood=0.0232 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,175 INFO tile_service tile=7201ad13bfd8 status=unfamiliar label=Highway conf=0.5185 ood=0.2203 latency_ms=24.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,209 INFO tile_service tile=ccbb20f43f07 status=confident label=Industrial conf=0.9958 ood=0.0311 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,243 INFO tile_service tile=2a5105d66a42 status=confident label=Forest conf=0.9936 ood=0.0363 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,276 INFO tile_service tile=fd8ab8f50b28 status=confident label=River conf=0.9929 ood=0.0917 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,311 INFO tile_service tile=ea44241db94e status=confident label=AnnualCrop conf=0.9954 ood=0.0306 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,344 INFO tile_service tile=e7c5c0536fc0 status=needs_review label=SeaLake conf=0.8403 ood=0.0595 latency_ms=25.1 flags=['grey_low_texture']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,378 INFO tile_service tile=37cfdc0738d8 status=confident label=Highway conf=0.9752 ood=0.101 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,412 INFO tile_service tile=7f0b736a8946 status=confident label=Residential conf=0.9945 ood=0.0481 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,446 INFO tile_service tile=fee0fd31c2c6 status=confident label=SeaLake conf=0.996 ood=0.0109 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,480 INFO tile_service tile=6b64bc7ea988 status=confident label=Highway conf=0.996 ood=0.0478 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,514 INFO tile_service tile=6b8d80187d0f status=confident label=AnnualCrop conf=0.9737 ood=0.1185 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,548 INFO tile_service tile=92a226e63436 status=confident label=Industrial conf=0.996 ood=0.0318 latency_ms=25.1 flags=['saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,582 INFO tile_service tile=4de58803dbdb status=confident label=River conf=0.995 ood=0.0501 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,616 INFO tile_service tile=4735e4c8b049 status=confident label=Residential conf=0.9962 ood=0.0193 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,650 INFO tile_service tile=3a17e7de4457 status=confident label=River conf=0.9962 ood=0.0322 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,684 INFO tile_service tile=c0a68c465f2f status=confident label=Industrial conf=0.9697 ood=0.1033 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,718 INFO tile_service tile=77152f3d6ae6 status=confident label=SeaLake conf=0.9959 ood=0.0003 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,751 INFO tile_service tile=f843af7ab437 status=confident label=Forest conf=0.9944 ood=0.011 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,785 INFO tile_service tile=0db18eedc3f6 status=confident label=Forest conf=0.995 ood=0.0065 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,819 INFO tile_service tile=053f2835e5d2 status=confident label=Industrial conf=0.9958 ood=0.0123 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,853 INFO tile_service tile=caab979c2b33 status=confident label=Highway conf=0.9958 ood=0.0357 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,887 INFO tile_service tile=abe7f0891b42 status=confident label=Forest conf=0.9944 ood=0.0314 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,921 INFO tile_service tile=4898bb1c5460 status=confident label=Forest conf=0.9959 ood=0.0117 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,955 INFO tile_service tile=6192dd44e9f6 status=confident label=River conf=0.9962 ood=0.0362 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:33,988 INFO tile_service tile=07ae7eb876ca status=confident label=AnnualCrop conf=0.9957 ood=0.03 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,023 INFO tile_service tile=1fa461fe106f status=confident label=Forest conf=0.9959 ood=0.0081 latency_ms=25.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,056 INFO tile_service tile=3a58e034d2cf status=confident label=AnnualCrop conf=0.9964 ood=0.0234 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,090 INFO tile_service tile=3117d222acc8 status=confident label=Forest conf=0.9957 ood=0.0062 latency_ms=25.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,125 INFO tile_service tile=b5863a4bfb07 status=confident label=Highway conf=0.9953 ood=0.0325 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,158 INFO tile_service tile=8535d890a87e status=confident label=River conf=0.994 ood=0.0561 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,192 INFO tile_service tile=a52a2df4ac1e status=confident label=Forest conf=0.9953 ood=0.0065 latency_ms=25.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,227 INFO tile_service tile=ffd5fa57cb73 status=confident label=AnnualCrop conf=0.9966 ood=0.0209 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,260 INFO tile_service tile=0ba963083133 status=confident label=SeaLake conf=0.9954 ood=0.0077 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,295 INFO tile_service tile=db7d7689d430 status=confident label=River conf=0.9956 ood=0.051 latency_ms=25.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,330 INFO tile_service tile=3c2d94d6da91 status=confident label=SeaLake conf=0.9961 ood=0.0055 latency_ms=25.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,363 INFO tile_service tile=b8e17b284e7e status=confident label=Industrial conf=0.9956 ood=0.0105 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,397 INFO tile_service tile=04dffe1ff1de status=confident label=SeaLake conf=0.9956 ood=0.0338 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,431 INFO tile_service tile=29ada1e4fc6c status=confident label=Forest conf=0.9958 ood=0.0046 latency_ms=25.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,465 INFO tile_service tile=1992e0566c02 status=confident label=SeaLake conf=0.9957 ood=0.0011 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,499 INFO tile_service tile=896a8d0cddaa status=unfamiliar label=River conf=0.8861 ood=0.2041 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,533 INFO tile_service tile=a215e9f71961 status=confident label=Industrial conf=0.9964 ood=0.0256 latency_ms=25.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,566 INFO tile_service tile=c00ac6df901f status=confident label=River conf=0.9918 ood=0.0446 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,600 INFO tile_service tile=cb559872ee0b status=confident label=Residential conf=0.9958 ood=0.0113 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,634 INFO tile_service tile=b46596a0121f status=confident label=AnnualCrop conf=0.9949 ood=0.0359 latency_ms=25.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,668 INFO tile_service tile=f54f4243e55f status=confident label=Residential conf=0.9953 ood=0.0232 latency_ms=25.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,703 INFO tile_service tile=571a5b0a4bd6 status=confident label=River conf=0.9958 ood=0.0543 latency_ms=25.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,739 INFO tile_service tile=5ca350f730d4 status=confident label=Industrial conf=0.9963 ood=0.0106 latency_ms=27.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,775 INFO tile_service tile=71175130a226 status=confident label=AnnualCrop conf=0.9955 ood=0.025 latency_ms=26.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,811 INFO tile_service tile=1b831dcbc034 status=confident label=River conf=0.9955 ood=0.0285 latency_ms=26.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,847 INFO tile_service tile=7640f208f17f status=confident label=Residential conf=0.9953 ood=0.0191 latency_ms=26.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,883 INFO tile_service tile=c7d005626708 status=confident label=Industrial conf=0.9951 ood=0.018 latency_ms=26.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,918 INFO tile_service tile=caf7bd3a8b8d status=confident label=SeaLake conf=0.996 ood=0.0117 latency_ms=26.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,954 INFO tile_service tile=5824039e93d8 status=confident label=River conf=0.9952 ood=0.0207 latency_ms=26.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:34,990 INFO tile_service tile=8fa14ebf95ce status=confident label=SeaLake conf=0.9951 ood=0.0068 latency_ms=26.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,024 INFO tile_service tile=851ea31493e1 status=confident label=Highway conf=0.9956 ood=0.0711 latency_ms=25.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,058 INFO tile_service tile=5b1bbc710c73 status=confident label=Residential conf=0.9955 ood=0.0333 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,092 INFO tile_service tile=47b66b6f05cd status=confident label=SeaLake conf=0.9957 ood=0.0002 latency_ms=25.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,128 INFO tile_service tile=e60cf9f704bb status=confident label=River conf=0.9966 ood=0.0549 latency_ms=26.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,161 INFO tile_service tile=1e1aab7b3bde status=confident label=Residential conf=0.9954 ood=0.029 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,194 INFO tile_service tile=fd128eadb647 status=confident label=Residential conf=0.9962 ood=0.0101 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,228 INFO tile_service tile=7e4f70c3c471 status=confident label=Industrial conf=0.9956 ood=0.0137 latency_ms=25.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,261 INFO tile_service tile=607bc8843479 status=confident label=Residential conf=0.9947 ood=0.0198 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,297 INFO tile_service tile=a3a37f02d567 status=confident label=Highway conf=0.9946 ood=0.0403 latency_ms=26.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,333 INFO tile_service tile=1c9f9d8714c2 status=confident label=Highway conf=0.9952 ood=0.0263 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,367 INFO tile_service tile=966df82e5565 status=confident label=AnnualCrop conf=0.9962 ood=0.0121 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,401 INFO tile_service tile=2ddfd1b7c914 status=confident label=Forest conf=0.9949 ood=0.0113 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,435 INFO tile_service tile=ef89d0c87b30 status=confident label=Industrial conf=0.9963 ood=0.0107 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,470 INFO tile_service tile=50e9d3c84447 status=confident label=SeaLake conf=0.9957 ood=0.0005 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,504 INFO tile_service tile=1a2cbbd94a7f status=confident label=Industrial conf=0.9963 ood=0.0117 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,537 INFO tile_service tile=9650d9e4b857 status=confident label=Residential conf=0.9959 ood=0.0101 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,572 INFO tile_service tile=94940c0baa3f status=confident label=Forest conf=0.9956 ood=0.011 latency_ms=24.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,605 INFO tile_service tile=3b57a085e662 status=confident label=Forest conf=0.9719 ood=0.1121 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,638 INFO tile_service tile=be518539302b status=confident label=Residential conf=0.9964 ood=0.0124 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,672 INFO tile_service tile=d433dc1c47f2 status=confident label=Highway conf=0.9809 ood=0.1088 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,706 INFO tile_service tile=bacac3e2ed59 status=confident label=Highway conf=0.9964 ood=0.041 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,739 INFO tile_service tile=2425064fa0e8 status=confident label=Residential conf=0.9959 ood=0.0095 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,773 INFO tile_service tile=158e1dca1066 status=confident label=Forest conf=0.996 ood=0.0091 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,807 INFO tile_service tile=b290e4d8e327 status=confident label=AnnualCrop conf=0.9956 ood=0.0244 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,841 INFO tile_service tile=8c74a891994e status=confident label=Industrial conf=0.9961 ood=0.0155 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,875 INFO tile_service tile=168fb18f4a32 status=confident label=Highway conf=0.9939 ood=0.0279 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,908 INFO tile_service tile=5e465d8191c3 status=confident label=River conf=0.9955 ood=0.0113 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,941 INFO tile_service tile=cd916d186945 status=confident label=AnnualCrop conf=0.9964 ood=0.0188 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:35,975 INFO tile_service tile=059d6505a114 status=confident label=Highway conf=0.9193 ood=0.1326 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,009 INFO tile_service tile=23a7a15b1ab3 status=confident label=SeaLake conf=0.996 ood=0.0018 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,042 INFO tile_service tile=4a3df5907b49 status=confident label=Highway conf=0.9956 ood=0.0237 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,076 INFO tile_service tile=6311320c9a30 status=confident label=SeaLake conf=0.9941 ood=0.0388 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,110 INFO tile_service tile=fa54ec9b0192 status=confident label=SeaLake conf=0.9958 ood=0.0006 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,143 INFO tile_service tile=583478f2f21e status=confident label=Residential conf=0.9939 ood=0.0425 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,177 INFO tile_service tile=f6bc38c7b05b status=confident label=SeaLake conf=0.9959 ood=0.001 latency_ms=24.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,210 INFO tile_service tile=9d9e30b2ea39 status=confident label=Highway conf=0.9949 ood=0.0484 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,243 INFO tile_service tile=efb22b250665 status=confident label=River conf=0.9954 ood=0.0445 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,277 INFO tile_service tile=92d9622dbe61 status=confident label=Residential conf=0.9955 ood=0.0337 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,326 INFO tile_service tile=bb5e41c777e3 status=confident label=Highway conf=0.9964 ood=0.0283 latency_ms=39.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,360 INFO tile_service tile=60cdf2f68e2a status=confident label=Forest conf=0.9957 ood=0.0136 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,394 INFO tile_service tile=6fcfee41e925 status=confident label=AnnualCrop conf=0.9961 ood=0.02 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,428 INFO tile_service tile=0a9523f717dd status=confident label=Highway conf=0.996 ood=0.0235 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,461 INFO tile_service tile=4cc0145b2248 status=confident label=Residential conf=0.9954 ood=0.0132 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,495 INFO tile_service tile=29f953e13228 status=confident label=Forest conf=0.9956 ood=0.0062 latency_ms=24.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,528 INFO tile_service tile=299042345b4f status=confident label=SeaLake conf=0.9961 ood=0.0247 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,561 INFO tile_service tile=02b17fb8374f status=confident label=Industrial conf=0.9969 ood=0.0116 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,594 INFO tile_service tile=666dc301849b status=confident label=AnnualCrop conf=0.996 ood=0.0201 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,628 INFO tile_service tile=72a15e098e54 status=confident label=River conf=0.9966 ood=0.0369 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,661 INFO tile_service tile=0d45f41176a9 status=confident label=Residential conf=0.996 ood=0.016 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,695 INFO tile_service tile=fb52cbcf7167 status=confident label=River conf=0.9834 ood=0.0965 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,728 INFO tile_service tile=a37ba6da0212 status=confident label=AnnualCrop conf=0.994 ood=0.0496 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,762 INFO tile_service tile=10af5745314d status=confident label=River conf=0.9954 ood=0.0324 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,794 INFO tile_service tile=145255c7ccfd status=confident label=Forest conf=0.996 ood=0.0072 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,828 INFO tile_service tile=7f9a3e781aa3 status=confident label=Residential conf=0.9961 ood=0.0162 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,861 INFO tile_service tile=f81bbbc89e08 status=confident label=Residential conf=0.9956 ood=0.017 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,894 INFO tile_service tile=a79c5597694f status=confident label=Residential conf=0.9964 ood=0.0164 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,927 INFO tile_service tile=40635c83005e status=confident label=AnnualCrop conf=0.9893 ood=0.0947 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,961 INFO tile_service tile=e0a0e2fdf973 status=unfamiliar label=AnnualCrop conf=0.4746 ood=0.5416 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:36,993 INFO tile_service tile=c7bede55c6fe status=confident label=Forest conf=0.9947 ood=0.0245 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,026 INFO tile_service tile=72ad8a4cb530 status=confident label=SeaLake conf=0.9955 ood=0.0353 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,060 INFO tile_service tile=e6d5da10976b status=confident label=Industrial conf=0.9927 ood=0.0454 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,092 INFO tile_service tile=188234adf481 status=confident label=Forest conf=0.9964 ood=0.0128 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,125 INFO tile_service tile=ceae5d740c5a status=confident label=Forest conf=0.9959 ood=0.0066 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,158 INFO tile_service tile=0a90a0089586 status=unfamiliar label=AnnualCrop conf=0.9467 ood=0.188 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,196 INFO tile_service tile=6a857aa4bcd6 status=confident label=Forest conf=0.9958 ood=0.0172 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,228 INFO tile_service tile=d5a27bd4b8b5 status=confident label=Highway conf=0.9952 ood=0.0532 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,261 INFO tile_service tile=c4c7fd5e8977 status=confident label=AnnualCrop conf=0.9957 ood=0.0318 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,293 INFO tile_service tile=649af5404df8 status=unfamiliar label=Industrial conf=0.6202 ood=0.218 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,327 INFO tile_service tile=bff5003e3c9f status=confident label=Highway conf=0.9952 ood=0.0671 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,359 INFO tile_service tile=0e74e489bfdb status=confident label=AnnualCrop conf=0.9967 ood=0.0136 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,393 INFO tile_service tile=46220e773c36 status=confident label=River conf=0.9966 ood=0.0409 latency_ms=24.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,426 INFO tile_service tile=14d4d085d45e status=confident label=SeaLake conf=0.9949 ood=0.0167 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,459 INFO tile_service tile=3ab7b3e875dc status=confident label=SeaLake conf=0.9958 ood=0.0003 latency_ms=24.3 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,492 INFO tile_service tile=3e86f0a9d88b status=confident label=Residential conf=0.9963 ood=0.0208 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,525 INFO tile_service tile=6c5d57a26912 status=confident label=Industrial conf=0.9953 ood=0.0169 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,558 INFO tile_service tile=a193995a1e58 status=confident label=Industrial conf=0.996 ood=0.0151 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,591 INFO tile_service tile=9e248c3adf1c status=confident label=Highway conf=0.9961 ood=0.0352 latency_ms=24.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,624 INFO tile_service tile=f8e65eddd79d status=confident label=AnnualCrop conf=0.9951 ood=0.0457 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,656 INFO tile_service tile=0d294c639aed status=confident label=AnnualCrop conf=0.9618 ood=0.1543 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,689 INFO tile_service tile=f1db3227a244 status=confident label=Residential conf=0.996 ood=0.0149 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,723 INFO tile_service tile=565679d421c0 status=confident label=SeaLake conf=0.993 ood=0.0508 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,757 INFO tile_service tile=3f23f9455833 status=confident label=Forest conf=0.996 ood=0.0066 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,789 INFO tile_service tile=f97b7dca5bf8 status=confident label=Forest conf=0.9957 ood=0.0047 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,823 INFO tile_service tile=8728c1e54e1b status=confident label=Residential conf=0.9961 ood=0.0132 latency_ms=24.4 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,856 INFO tile_service tile=dce966cd2413 status=confident label=River conf=0.9959 ood=0.0266 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,888 INFO tile_service tile=667215a43e5a status=needs_review label=SeaLake conf=0.9956 ood=0.0089 latency_ms=23.9 flags=['grey_low_texture']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,921 INFO tile_service tile=73d99fec7d20 status=confident label=Highway conf=0.9953 ood=0.0645 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,954 INFO tile_service tile=1708b3ace3f0 status=confident label=AnnualCrop conf=0.9957 ood=0.0367 latency_ms=24.0 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:37,987 INFO tile_service tile=13b603940273 status=confident label=Residential conf=0.9959 ood=0.0142 latency_ms=23.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,019 INFO tile_service tile=f63189c2a824 status=confident label=SeaLake conf=0.9955 ood=0.0194 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,052 INFO tile_service tile=b1247c10bb8d status=confident label=Forest conf=0.9955 ood=0.017 latency_ms=23.9 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,084 INFO tile_service tile=f31908396487 status=confident label=Highway conf=0.9951 ood=0.0466 latency_ms=23.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,117 INFO tile_service tile=4434d10a05a7 status=confident label=Residential conf=0.9953 ood=0.015 latency_ms=23.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,150 INFO tile_service tile=508a177fa7f1 status=confident label=River conf=0.9962 ood=0.0196 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,182 INFO tile_service tile=40bfb350ce7e status=confident label=AnnualCrop conf=0.9894 ood=0.0918 latency_ms=23.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,215 INFO tile_service tile=15bdc83d661f status=confident label=River conf=0.9949 ood=0.0374 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,247 INFO tile_service tile=f46863faadf0 status=confident label=AnnualCrop conf=0.9963 ood=0.0302 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,280 INFO tile_service tile=a97067160bb6 status=confident label=Industrial conf=0.9954 ood=0.019 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,313 INFO tile_service tile=888c111b19e5 status=confident label=AnnualCrop conf=0.9957 ood=0.033 latency_ms=23.8 flags=['saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,345 INFO tile_service tile=1c445d194402 status=confident label=Residential conf=0.9957 ood=0.016 latency_ms=23.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,378 INFO tile_service tile=222c8c19e4f4 status=confident label=Highway conf=0.9946 ood=0.0378 latency_ms=24.2 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,411 INFO tile_service tile=1485e081b55e status=confident label=Industrial conf=0.9964 ood=0.0096 latency_ms=23.7 flags=['saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,443 INFO tile_service tile=991b3bec69c8 status=confident label=AnnualCrop conf=0.9952 ood=0.0412 latency_ms=23.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,476 INFO tile_service tile=72b7c2fe454c status=unfamiliar label=AnnualCrop conf=0.8709 ood=0.3246 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,509 INFO tile_service tile=a4538d1a070a status=confident label=Residential conf=0.9956 ood=0.0127 latency_ms=23.7 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,541 INFO tile_service tile=74f000f4232a status=confident label=Forest conf=0.996 ood=0.0062 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,574 INFO tile_service tile=dc5066abbde9 status=confident label=Industrial conf=0.9965 ood=0.0095 latency_ms=23.6 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,607 INFO tile_service tile=cc1dbda056b5 status=confident label=Highway conf=0.9967 ood=0.0256 latency_ms=24.1 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,639 INFO tile_service tile=91c9a6af2324 status=confident label=Industrial conf=0.9833 ood=0.0893 latency_ms=23.8 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33150 - "GET /v1/tiles/570d0a5e4ae8dea2a0463dbe26726a9e296f52fd0feced2a3e6af988f60e9df9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 400 Bad Request
+2026-09-26 18:27:38,753 INFO tile_service tile=91b71ad10eb7 status=needs_review label=SeaLake conf=0.9924 ood=0.0705 latency_ms=24.4 flags=['blank']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,786 INFO tile_service tile=db1b8db8db98 status=needs_review label=SeaLake conf=0.9945 ood=0.051 latency_ms=23.7 flags=['grey_low_texture']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,819 INFO tile_service tile=f97105baa3be status=unfamiliar label=Residential conf=0.7681 ood=0.3372 latency_ms=23.5 flags=[]
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,852 INFO tile_service tile=a9503fd441d5 status=unfamiliar label=AnnualCrop conf=0.8495 ood=0.3783 latency_ms=24.4 flags=['saturated', 'nodata_pixels']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+2026-09-26 18:27:38,884 INFO tile_service tile=7be29833b478 status=unfamiliar label=SeaLake conf=0.9231 ood=0.324 latency_ms=23.6 flags=['blank', 'saturated']
+INFO:     127.0.0.1:33150 - "POST /v1/tiles HTTP/1.1" 201 Created
+INFO:     127.0.0.1:57698 - "GET /v1/predictions?status=unfamiliar&limit=10 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57708 - "GET /v1/predictions?label=SeaLake&min_confidence=0.99&limit=500 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57716 - "GET /v1/stats HTTP/1.1" 501 Not Implemented
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35386]

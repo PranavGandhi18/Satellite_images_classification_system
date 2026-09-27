@@ -1,0 +1,29 @@
+{
+  "vit_small_patch16_dinov3.lvd1689m": {
+    "key": "dinov3_vits16",
+    "file": "weights/vit_small_patch16_dinov3.lvd1689m/model.safetensors",
+    "sha256": "2a1ec16ae28ffa07bc0ead0241ee7df9fc26451fe6f9f839b7b3afa0a906b040",
+    "bytes": 86362376,
+    "source": "https://huggingface.co/timm/vit_small_patch16_dinov3.lvd1689m",
+    "licence": "DINOv3 License (custom; needs legal review before shipping)",
+    "extra_files": [
+      "LICENSE.md",
+      "README.md",
+      "config.json"
+    ],
+    "downloaded_at": "2026-09-26T19:05:15+00:00"
+  },
+  "vit_small_patch16_224.augreg_in21k_ft_in1k": {
+    "key": "vit_s16_in21k",
+    "file": "weights/vit_small_patch16_224.augreg_in21k_ft_in1k/model.safetensors",
+    "sha256": "79c03c635cdfd798a364a9d8c4e5c0b7255b975ea2c9616046d4f77ab01435aa",
+    "bytes": 88216496,
+    "source": "https://huggingface.co/timm/vit_small_patch16_224.augreg_in21k_ft_in1k",
+    "licence": "Apache-2.0",
+    "extra_files": [
+      "README.md",
+      "config.json"
+    ],
+    "downloaded_at": "2026-09-26T19:05:20+00:00"
+  }
+}

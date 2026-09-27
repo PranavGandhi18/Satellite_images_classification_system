@@ -1,0 +1,61 @@
+{
+ "key": "huygens_resnet50",
+ "repo": "huygens-jnr/eurosat-resnet50",
+ "trained_on": "EuroSAT (split unknown)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 23.528522,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.1619047619047619,
+   "acc_all1260": 0.12857142857142856,
+   "input": 224
+  },
+  "raw64_no_norm": {
+   "acc_eval": 0.9904761904761905,
+   "acc_all1260": 0.9896825396825397,
+   "input": 64
+  },
+  "224_no_norm": {
+   "acc_eval": 0.19523809523809524,
+   "acc_all1260": 0.1992063492063492,
+   "input": 224
+  },
+  "64_imagenet_norm": {
+   "acc_eval": 0.21904761904761905,
+   "acc_all1260": 0.2015873015873016,
+   "input": 64
+  }
+ },
+ "primary_prep": "raw64_no_norm (undocumented; best of variants tried)",
+ "input": 64,
+ "acc_eval": 0.9904761904761905,
+ "acc_all1260": 0.9896825396825397,
+ "in_vocab_rate": 0.9920634920634921,
+ "unmapped_mass": 0.009105503559112549,
+ "per_class_recall_all": {
+  "AnnualCrop": 1.0,
+  "Forest": 0.9833333333333333,
+  "Highway": 0.9944444444444445,
+  "Industrial": 0.9666666666666667,
+  "Residential": 1.0,
+  "River": 0.9833333333333333,
+  "SeaLake": 1.0
+ },
+ "wall_s": 101.49936819076538,
+ "torch_ms_1thr": 28.336990624666214,
+ "torch_ms_4thr": 26.03226900100708
+}

@@ -1,0 +1,30 @@
+{
+ "key": "ssl4eo_resnet50_rgb_moco",
+ "group": "Remote-sensing pretrained",
+ "family": "CNN",
+ "input": 224,
+ "dim": 2048,
+ "C": 1.0,
+ "cv_acc": 0.9685714285714286,
+ "eval_acc": 0.9666666666666667,
+ "eval_ci": [
+  0.9328047959061996,
+  0.9837614849297089
+ ],
+ "eval_macro_f1": 0.9666369784853461,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9,
+  "Industrial": 0.9,
+  "Residential": 1.0,
+  "River": 0.9666666666666667,
+  "SeaLake": 1.0
+ },
+ "params_m": 23.508032,
+ "gflops": 8.174272512,
+ "cpu_ms_1thr": 604.5292764902115,
+ "cpu_ms_4thr": 207.73986913263798,
+ "wall_s": 598.9898824691772
+}

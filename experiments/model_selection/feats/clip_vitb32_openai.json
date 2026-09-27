@@ -1,0 +1,31 @@
+{
+ "key": "clip_vitb32_openai",
+ "group": "Vision-language",
+ "family": "ViT",
+ "input": 224,
+ "dim": 512,
+ "C": 0.1,
+ "cv_acc": 0.9476190476190476,
+ "eval_acc": 0.9476190476190476,
+ "eval_ci": [
+  0.9086523067849005,
+  0.9705031054454606
+ ],
+ "eval_macro_f1": 0.9471833905985785,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 1.0,
+  "Highway": 0.8333333333333334,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.9333333333333333,
+  "SeaLake": 0.9
+ },
+ "zeroshot_acc": 0.5476190476190477,
+ "params_m": 151.277313,
+ "gflops": 5.89430784,
+ "cpu_ms_1thr": 678.0368983745575,
+ "cpu_ms_4thr": 183.3054982125759,
+ "wall_s": 167.78198170661926
+}

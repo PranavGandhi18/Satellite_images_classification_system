@@ -1,0 +1,12 @@
+{
+ "key": "clip_vitb32_openai",
+ "input": 224,
+ "torch_ms_1thr": 164.3160991370678,
+ "torch_ms_4thr": 59.42365527153015,
+ "torch_tiles_per_s_4thr_b32": 21.731964575474365,
+ "onnx_mb": 351.780456,
+ "onnx_max_abs_diff": 6.236135959625244e-06,
+ "onnx_ms_1thr": 110.86773872375488,
+ "onnx_ms_4thr": 39.66275975108147,
+ "onnx_tiles_per_s_4thr_b32": 30.501574017483378
+}

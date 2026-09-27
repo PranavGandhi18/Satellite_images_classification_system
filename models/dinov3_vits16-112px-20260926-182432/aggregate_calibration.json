@@ -1,0 +1,82 @@
+{
+  "model_version": "dinov3_vits16-112px-20260926-182432",
+  "classes": [
+    "AnnualCrop",
+    "Forest",
+    "Highway",
+    "Industrial",
+    "Residential",
+    "River",
+    "SeaLake"
+  ],
+  "confusion_counts": [
+    [
+      30,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      30,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      29,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      30,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      29,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      29
+    ]
+  ],
+  "n": 210,
+  "source": "eval_set: 210 labelled tiles, never used for training or threshold choices",
+  "created_at": "2026-09-27T13:16:45Z",
+  "rows": "true class",
+  "columns": "predicted class"
+}

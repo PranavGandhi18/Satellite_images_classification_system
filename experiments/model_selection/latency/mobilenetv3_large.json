@@ -1,0 +1,12 @@
+{
+ "key": "mobilenetv3_large",
+ "input": 224,
+ "torch_ms_1thr": 16.93784072995186,
+ "torch_ms_4thr": 16.47426001727581,
+ "torch_tiles_per_s_4thr_b32": 68.53528705547382,
+ "onnx_mb": 16.796443,
+ "onnx_max_abs_diff": 6.556510925292969e-07,
+ "onnx_ms_1thr": 7.2910599410533905,
+ "onnx_ms_4thr": 4.195373505353928,
+ "onnx_tiles_per_s_4thr_b32": 497.9568305820864
+}

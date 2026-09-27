@@ -1,0 +1,12 @@
+{
+ "key": "fastvit_t8",
+ "input": 224,
+ "torch_ms_1thr": 46.75547033548355,
+ "torch_ms_4thr": 24.096721783280373,
+ "torch_tiles_per_s_4thr_b32": 73.64922692137067,
+ "onnx_mb": 13.099306,
+ "onnx_max_abs_diff": 2.765655517578125e-05,
+ "onnx_ms_1thr": 22.59754203259945,
+ "onnx_ms_4thr": 10.414177551865578,
+ "onnx_tiles_per_s_4thr_b32": 138.64424221814528
+}

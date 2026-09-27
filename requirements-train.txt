@@ -1,0 +1,10 @@
+# Training + export + evaluation + tests (development machine). Install torch from the CPU index first:
+#   pip install torch==2.14.0 torchvision==0.29.0 --index-url https://download.pytorch.org/whl/cpu
+-r requirements-serve.txt
+timm==1.0.30
+onnx==1.23.0
+scikit-learn==1.9.1
+huggingface-hub==1.33.0
+safetensors==0.8.0
+pytest==9.1.1
+httpx==0.28.1

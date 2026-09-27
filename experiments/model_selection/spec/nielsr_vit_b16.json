@@ -1,0 +1,51 @@
+{
+ "key": "nielsr_vit_b16",
+ "repo": "nielsr/vit-finetuned-eurosat-kornia",
+ "trained_on": "EuroSAT (split unknown)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 85.806346,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.9904761904761905,
+   "acc_all1260": 0.9896825396825397,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.9904761904761905,
+   "acc_all1260": 0.9873015873015873,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.9904761904761905,
+ "acc_all1260": 0.9873015873015873,
+ "in_vocab_rate": 0.9912698412698413,
+ "unmapped_mass": 0.020298659801483154,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.9888888888888889,
+  "Forest": 1.0,
+  "Highway": 0.9888888888888889,
+  "Industrial": 1.0,
+  "Residential": 0.9555555555555556,
+  "River": 0.9777777777777777,
+  "SeaLake": 1.0
+ },
+ "wall_s": 265.56534075737,
+ "torch_ms_1thr": 528.2927230000496,
+ "torch_ms_4thr": 211.0789604485035
+}

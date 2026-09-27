@@ -1,0 +1,31 @@
+{
+ "key": "clip_vitb16_siglip2",
+ "group": "Vision-language",
+ "family": "ViT",
+ "input": 224,
+ "dim": 768,
+ "C": 0.1,
+ "cv_acc": 0.9657142857142856,
+ "eval_acc": 0.9761904761904762,
+ "eval_ci": [
+  0.9454834680588895,
+  0.9897882470797925
+ ],
+ "eval_macro_f1": 0.9760071781781264,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9666666666666667,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.9666666666666667,
+  "SeaLake": 0.9
+ },
+ "zeroshot_acc": 0.6523809523809524,
+ "params_m": 375.18797,
+ "gflops": NaN,
+ "cpu_ms_1thr": 1912.4630894511938,
+ "cpu_ms_4thr": 1255.4889228194952,
+ "wall_s": 1098.2631750106812
+}

@@ -1,0 +1,21 @@
+{
+ "model": "mobilenetv3_large_100.ra_in1k",
+ "input": 224,
+ "backbone_lr": 0.0003,
+ "epochs": 15,
+ "best_epoch": 14,
+ "val_acc": 0.949367105960846,
+ "eval_acc": 0.9476190209388733,
+ "acc_at_80cov": 0.9940476417541504,
+ "train_minutes_cpu": 25.458195797602336,
+ "threads": 16,
+ "per_class_recall": {
+  "AnnualCrop": 0.9333333373069763,
+  "Forest": 1.0,
+  "Highway": 0.8666666746139526,
+  "Industrial": 0.9333333373069763,
+  "Residential": 1.0,
+  "River": 0.9333333373069763,
+  "SeaLake": 0.9666666388511658
+ }
+}

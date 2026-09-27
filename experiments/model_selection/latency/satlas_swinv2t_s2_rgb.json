@@ -1,0 +1,12 @@
+{
+ "key": "satlas_swinv2t_s2_rgb",
+ "input": 256,
+ "torch_ms_1thr": 215.99572151899338,
+ "torch_ms_4thr": 94.28288601338863,
+ "torch_tiles_per_s_4thr_b32": 7.37068512377615,
+ "onnx_mb": 111.653606,
+ "onnx_max_abs_diff": 1.0371208190917969e-05,
+ "onnx_ms_1thr": 163.06092217564583,
+ "onnx_ms_4thr": 83.53311754763126,
+ "onnx_tiles_per_s_4thr_b32": 16.935840004872038
+}

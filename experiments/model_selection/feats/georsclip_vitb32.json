@@ -1,0 +1,31 @@
+{
+ "key": "georsclip_vitb32",
+ "group": "Vision-language (RS)",
+ "family": "ViT",
+ "input": 224,
+ "dim": 512,
+ "C": 1.0,
+ "cv_acc": 0.9828571428571429,
+ "eval_acc": 0.9761904761904762,
+ "eval_ci": [
+  0.9454834680588895,
+  0.9897882470797925
+ ],
+ "eval_macro_f1": 0.9763349522332753,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9333333333333333,
+  "Industrial": 0.9666666666666667,
+  "Residential": 1.0,
+  "River": 0.9666666666666667,
+  "SeaLake": 0.9666666666666667
+ },
+ "zeroshot_acc": 0.7142857142857143,
+ "params_m": 151.277313,
+ "gflops": 5.89430784,
+ "cpu_ms_1thr": 1357.6320055872202,
+ "cpu_ms_4thr": 693.8621532171965,
+ "wall_s": 443.890193939209
+}

@@ -1,0 +1,392 @@
+{
+  "mode": "HTTP against http://127.0.0.1:8000",
+  "model_version": "dinov3_vits16-112px-20260926-182432",
+  "n": 210,
+  "accuracy": 0.9857142857142858,
+  "accuracy_ci95": [
+    0.9588471765978211,
+    0.9951299728436348
+  ],
+  "confident_only": {
+    "coverage": 0.919047619047619,
+    "accuracy": 0.9948186528497409
+  },
+  "by_status": {
+    "confident": {
+      "n": 193,
+      "share": 0.919047619047619,
+      "accuracy": 0.9948186528497409
+    },
+    "needs_review": {
+      "n": 11,
+      "share": 0.05238095238095238,
+      "accuracy": 1.0
+    },
+    "unfamiliar": {
+      "n": 6,
+      "share": 0.02857142857142857,
+      "accuracy": 0.6666666666666666
+    }
+  },
+  "per_class_recall": {
+    "AnnualCrop": 1.0,
+    "Forest": 1.0,
+    "Highway": 1.0,
+    "Industrial": 0.9666666666666667,
+    "Residential": 1.0,
+    "River": 0.9666666666666667,
+    "SeaLake": 0.9666666666666667
+  },
+  "confusion_matrix": [
+    [
+      30,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      30,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      30,
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      29,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0,
+      30,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      1,
+      0,
+      0,
+      29,
+      0
+    ],
+    [
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      29
+    ]
+  ],
+  "latency_ms": {
+    "model_p50": 21.459,
+    "model_p95": 25.6886,
+    "request_p50": 29.513461515307426,
+    "request_p95": 34.40476115792989
+  },
+  "idempotency": {
+    "status_code": 200,
+    "idempotent_hit": true,
+    "same_result": true
+  },
+  "invalid_inputs": {
+    "garbage bytes": {
+      "status_code": 400,
+      "detail": "not a decodable image"
+    },
+    "32x32 PNG": {
+      "status_code": 400,
+      "detail": "expected 64x64 pixels, got 32x32"
+    },
+    "JPEG instead of PNG": {
+      "status_code": 400,
+      "detail": "expected a PNG, got JPEG"
+    },
+    "grayscale PNG": {
+      "status_code": 400,
+      "detail": "expected 3-band 8-bit RGB, got PIL mode 'L'"
+    },
+    "truncated PNG": {
+      "status_code": 400,
+      "detail": "corrupt image: image file is truncated"
+    }
+  },
+  "synthetic_tiles": {
+    "uniform grey (no-data-like)": {
+      "status": "needs_review",
+      "label": "SeaLake",
+      "confidence": 0.9924063783948986,
+      "ood_score": 0.07054901123046875,
+      "flags": [
+        "blank"
+      ]
+    },
+    "bright hazy white (cloud-like)": {
+      "status": "needs_review",
+      "label": "SeaLake",
+      "confidence": 0.9945278276102304,
+      "ood_score": 0.05102264881134033,
+      "flags": [
+        "grey_low_texture"
+      ]
+    },
+    "random noise": {
+      "status": "unfamiliar",
+      "label": "Residential",
+      "confidence": 0.7680886700295029,
+      "ood_score": 0.33722150325775146,
+      "flags": []
+    },
+    "black/white checkerboard": {
+      "status": "unfamiliar",
+      "label": "AnnualCrop",
+      "confidence": 0.8495442047286932,
+      "ood_score": 0.3783448338508606,
+      "flags": [
+        "saturated",
+        "nodata_pixels"
+      ]
+    },
+    "saturated magenta": {
+      "status": "unfamiliar",
+      "label": "SeaLake",
+      "confidence": 0.9231361605389837,
+      "ood_score": 0.32402896881103516,
+      "flags": [
+        "blank",
+        "saturated"
+      ]
+    }
+  },
+  "flagged_real_tiles": [
+    {
+      "file": "tile_105.png",
+      "true": "Industrial",
+      "pred": "Industrial",
+      "status": "confident",
+      "confidence": 0.9961417593273036,
+      "ood_score": 0.018604516983032227,
+      "flags": [
+        "saturated"
+      ]
+    },
+    {
+      "file": "tile_153.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9958329761609364,
+      "ood_score": 0.000326693058013916,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_180.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.995813684868439,
+      "ood_score": 0.0002048015594482422,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_098.png",
+      "true": "Industrial",
+      "pred": "Industrial",
+      "status": "confident",
+      "confidence": 0.9960096670535619,
+      "ood_score": 0.013832449913024902,
+      "flags": [
+        "saturated"
+      ]
+    },
+    {
+      "file": "tile_151.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.8402756136882268,
+      "ood_score": 0.05954784154891968,
+      "flags": [
+        "grey_low_texture"
+      ]
+    },
+    {
+      "file": "tile_096.png",
+      "true": "Industrial",
+      "pred": "Industrial",
+      "status": "confident",
+      "confidence": 0.9959801265382894,
+      "ood_score": 0.0317685604095459,
+      "flags": [
+        "saturated"
+      ]
+    },
+    {
+      "file": "tile_173.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9958671919585284,
+      "ood_score": 0.0002567768096923828,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_177.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9956586313414764,
+      "ood_score": 0.00023490190505981445,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_154.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9956655928634355,
+      "ood_score": 0.0005027651786804199,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_179.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9960048580031723,
+      "ood_score": 0.0018110275268554688,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_169.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9957865640597584,
+      "ood_score": 0.0005993843078613281,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_172.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9959270986477907,
+      "ood_score": 0.0009816884994506836,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_157.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9958104142542943,
+      "ood_score": 0.0002880096435546875,
+      "flags": [
+        "blank"
+      ]
+    },
+    {
+      "file": "tile_155.png",
+      "true": "SeaLake",
+      "pred": "SeaLake",
+      "status": "needs_review",
+      "confidence": 0.9956227712723629,
+      "ood_score": 0.008908629417419434,
+      "flags": [
+        "grey_low_texture"
+      ]
+    },
+    {
+      "file": "tile_123.png",
+      "true": "AnnualCrop",
+      "pred": "AnnualCrop",
+      "status": "confident",
+      "confidence": 0.9956520773752282,
+      "ood_score": 0.032968997955322266,
+      "flags": [
+        "saturated"
+      ]
+    },
+    {
+      "file": "tile_104.png",
+      "true": "Industrial",
+      "pred": "Industrial",
+      "status": "confident",
+      "confidence": 0.9963522306895842,
+      "ood_score": 0.009607791900634766,
+      "flags": [
+        "saturated"
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "file": "tile_118.png",
+      "true": "Industrial",
+      "pred": "Highway",
+      "status": "unfamiliar",
+      "confidence": 0.5185154003257765,
+      "margin": 0.0638887849944787,
+      "ood_score": 0.22034239768981934
+    },
+    {
+      "file": "tile_034.png",
+      "true": "River",
+      "pred": "Highway",
+      "status": "confident",
+      "confidence": 0.9808514009779449,
+      "margin": 0.9660834704038397,
+      "ood_score": 0.10884749889373779
+    },
+    {
+      "file": "tile_174.png",
+      "true": "SeaLake",
+      "pred": "AnnualCrop",
+      "status": "unfamiliar",
+      "confidence": 0.47461407717818627,
+      "margin": 0.1551225724575509,
+      "ood_score": 0.5416384935379028
+    }
+  ]
+}

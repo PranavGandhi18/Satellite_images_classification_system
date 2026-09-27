@@ -1,0 +1,46 @@
+{
+ "key": "mrm8488_convnext_t",
+ "repo": "mrm8488/convnext-tiny-finetuned-eurosat",
+ "trained_on": "EuroSAT (nielsr/eurosat-demo, random 90/10)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 27.827818,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.9857142857142858,
+   "acc_all1260": 0.9865079365079366,
+   "input": 224
+  }
+ },
+ "primary_prep": "plain",
+ "input": 224,
+ "acc_eval": 0.9857142857142858,
+ "acc_all1260": 0.9865079365079366,
+ "in_vocab_rate": 0.9888888888888889,
+ "unmapped_mass": 0.014677107334136963,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.9888888888888889,
+  "Forest": 0.9888888888888889,
+  "Highway": 0.9888888888888889,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.9888888888888889,
+  "SeaLake": 0.95
+ },
+ "wall_s": 56.12088990211487,
+ "torch_ms_1thr": 153.5942517220974,
+ "torch_ms_4thr": 68.79982352256775
+}

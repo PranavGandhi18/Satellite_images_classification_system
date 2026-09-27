@@ -1,0 +1,21 @@
+{
+ "model": "resnet18.tv_in1k",
+ "input": 64,
+ "backbone_lr": 0.0001,
+ "epochs": 15,
+ "best_epoch": 7,
+ "val_acc": 0.949367105960846,
+ "eval_acc": 0.9523809552192688,
+ "acc_at_80cov": 0.9940476417541504,
+ "train_minutes_cpu": 11.690061108271282,
+ "threads": 24,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666388511658,
+  "Forest": 1.0,
+  "Highway": 0.9333333373069763,
+  "Industrial": 1.0,
+  "Residential": 0.9666666388511658,
+  "River": 0.8666666746139526,
+  "SeaLake": 0.9333333373069763
+ }
+}

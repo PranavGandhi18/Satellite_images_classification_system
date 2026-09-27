@@ -1,0 +1,21 @@
+{
+ "model": "efficientvit_b0.r224_in1k",
+ "input": 224,
+ "backbone_lr": 0.0003,
+ "epochs": 15,
+ "best_epoch": 14,
+ "val_acc": 0.9683544039726257,
+ "eval_acc": 0.9714285731315613,
+ "acc_at_80cov": 1.0,
+ "train_minutes_cpu": 18.560085078080494,
+ "threads": 16,
+ "per_class_recall": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.8999999761581421,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.8999999761581421,
+  "SeaLake": 1.0
+ }
+}

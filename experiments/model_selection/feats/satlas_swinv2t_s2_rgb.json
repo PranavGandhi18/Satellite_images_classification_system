@@ -1,0 +1,30 @@
+{
+ "key": "satlas_swinv2t_s2_rgb",
+ "group": "Remote-sensing pretrained",
+ "family": "Swin",
+ "input": 256,
+ "dim": 768,
+ "C": 1.0,
+ "cv_acc": 0.9304761904761906,
+ "eval_acc": 0.9428571428571428,
+ "eval_ci": [
+  0.9027892209873706,
+  0.9670134740916038
+ ],
+ "eval_macro_f1": 0.9436091733883386,
+ "acc_at_80cov": 0.9880952380952381,
+ "per_class_recall": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 0.9,
+  "Industrial": 0.9,
+  "Residential": 0.9666666666666667,
+  "River": 0.8666666666666667,
+  "SeaLake": 0.9666666666666667
+ },
+ "params_m": 27.58257,
+ "gflops": 11.877844992,
+ "cpu_ms_1thr": 524.6419236063957,
+ "cpu_ms_4thr": 286.836713552475,
+ "wall_s": 501.79659390449524
+}

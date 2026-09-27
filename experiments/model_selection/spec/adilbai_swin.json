@@ -1,0 +1,46 @@
+{
+ "key": "adilbai_swin",
+ "repo": "Adilbai/EuroSAT-Swin",
+ "trained_on": "EuroSAT (nielsr/eurosat-demo)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 27.527044,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.18095238095238095,
+   "acc_all1260": 0.14285714285714285,
+   "input": 224
+  }
+ },
+ "primary_prep": "plain",
+ "input": 224,
+ "acc_eval": 0.18095238095238095,
+ "acc_all1260": 0.14285714285714285,
+ "in_vocab_rate": 0.6134920634920635,
+ "unmapped_mass": 0.3468603491783142,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.011111111111111112,
+  "Forest": 0.0,
+  "Highway": 0.6666666666666666,
+  "Industrial": 0.0,
+  "Residential": 0.2,
+  "River": 0.12222222222222222,
+  "SeaLake": 0.0
+ },
+ "wall_s": 167.1354157924652,
+ "torch_ms_1thr": 162.5990904867649,
+ "torch_ms_4thr": 80.08025214076042
+}

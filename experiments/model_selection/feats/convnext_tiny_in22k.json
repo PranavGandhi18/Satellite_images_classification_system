@@ -1,0 +1,30 @@
+{
+ "key": "convnext_tiny_in22k",
+ "group": "ImageNet CNN",
+ "family": "CNN",
+ "input": 224,
+ "dim": 768,
+ "C": 0.1,
+ "cv_acc": 0.959047619047619,
+ "eval_acc": 0.9238095238095239,
+ "eval_ci": [
+  0.8798308039873729,
+  0.9525610224860542
+ ],
+ "eval_macro_f1": 0.9239988225272421,
+ "acc_at_80cov": 0.9880952380952381,
+ "per_class_recall": {
+  "AnnualCrop": 0.9,
+  "Forest": 1.0,
+  "Highway": 0.8666666666666667,
+  "Industrial": 0.9,
+  "Residential": 1.0,
+  "River": 0.8666666666666667,
+  "SeaLake": 0.9333333333333333
+ },
+ "params_m": 27.820128,
+ "gflops": 8.909526528,
+ "cpu_ms_1thr": 160.7324816286564,
+ "cpu_ms_4thr": 75.0040952116251,
+ "wall_s": 161.91875314712524
+}

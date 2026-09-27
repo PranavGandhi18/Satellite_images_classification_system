@@ -1,0 +1,59 @@
+{
+ "key": "tanganke_clip_b16",
+ "repo": "tanganke/clip-vit-base-patch16_eurosat",
+ "trained_on": "EuroSAT (tanganke/eurosat 21.6k/2.7k)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "brushland or shrubland",
+  "pasture land",
+  "permanent crop land"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 149.620737,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 1.0,
+   "acc_all1260": 1.0,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 1.0,
+   "acc_all1260": 1.0,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 1.0,
+ "acc_all1260": 1.0,
+ "in_vocab_rate": 0.9992063492063492,
+ "unmapped_mass": 0.0009169578552246094,
+ "per_class_recall_all": {
+  "AnnualCrop": 1.0,
+  "Forest": 1.0,
+  "Highway": 1.0,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 1.0,
+  "SeaLake": 1.0
+ },
+ "acc_on_our_tiles_in_train_split": [
+  1.0,
+  1012
+ ],
+ "acc_on_our_tiles_in_test_split": [
+  1.0,
+  116
+ ],
+ "wall_s": 661.7987716197968,
+ "torch_ms_1thr": 518.248938024044,
+ "torch_ms_4thr": 203.4323625266552
+}

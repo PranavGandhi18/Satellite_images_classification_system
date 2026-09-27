@@ -1,0 +1,92 @@
+[
+ {
+  "file": "tile_001.png",
+  "true_label": "Forest",
+  "note": ""
+ },
+ {
+  "file": "tile_002.png",
+  "true_label": "Forest",
+  "note": ""
+ },
+ {
+  "file": "tile_031.png",
+  "true_label": "River",
+  "note": ""
+ },
+ {
+  "file": "tile_032.png",
+  "true_label": "River",
+  "note": ""
+ },
+ {
+  "file": "tile_061.png",
+  "true_label": "Residential",
+  "note": ""
+ },
+ {
+  "file": "tile_062.png",
+  "true_label": "Residential",
+  "note": ""
+ },
+ {
+  "file": "tile_091.png",
+  "true_label": "Industrial",
+  "note": ""
+ },
+ {
+  "file": "tile_092.png",
+  "true_label": "Industrial",
+  "note": ""
+ },
+ {
+  "file": "tile_121.png",
+  "true_label": "AnnualCrop",
+  "note": ""
+ },
+ {
+  "file": "tile_122.png",
+  "true_label": "AnnualCrop",
+  "note": ""
+ },
+ {
+  "file": "tile_151.png",
+  "true_label": "SeaLake",
+  "note": ""
+ },
+ {
+  "file": "tile_152.png",
+  "true_label": "SeaLake",
+  "note": ""
+ },
+ {
+  "file": "tile_181.png",
+  "true_label": "Highway",
+  "note": ""
+ },
+ {
+  "file": "tile_182.png",
+  "true_label": "Highway",
+  "note": ""
+ },
+ {
+  "file": "tile_034.png",
+  "true_label": "River",
+  "note": "the one confident mistake in the eval run"
+ },
+ {
+  "file": "tile_118.png",
+  "true_label": "Industrial",
+  "note": "a mistake the policy flags as unfamiliar"
+ },
+ {
+  "file": "synthetic_noise.png",
+  "true_label": null,
+  "note": "random noise: expect unfamiliar"
+ },
+ {
+  "file": "synthetic_blank.png",
+  "true_label": null,
+  "note": "constant grey no-data tile: expect needs_review (blank)"
+ }
+]

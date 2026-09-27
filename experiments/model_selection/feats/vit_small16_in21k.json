@@ -1,0 +1,30 @@
+{
+ "key": "vit_small16_in21k",
+ "group": "ImageNet Transformer",
+ "family": "ViT",
+ "input": 224,
+ "dim": 384,
+ "C": 1.0,
+ "cv_acc": 0.9714285714285713,
+ "eval_acc": 0.9666666666666667,
+ "eval_ci": [
+  0.9328047959061996,
+  0.9837614849297089
+ ],
+ "eval_macro_f1": 0.9660768383510108,
+ "acc_at_80cov": 0.9880952380952381,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 1.0,
+  "Highway": 0.8333333333333334,
+  "Industrial": 1.0,
+  "Residential": 0.9666666666666667,
+  "River": 1.0,
+  "SeaLake": 1.0
+ },
+ "params_m": 21.665664,
+ "gflops": 8.48166912,
+ "cpu_ms_1thr": 148.07637594640255,
+ "cpu_ms_4thr": 58.22444334626198,
+ "wall_s": 134.70721578598022
+}

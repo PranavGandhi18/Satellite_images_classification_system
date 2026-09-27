@@ -1,0 +1,12 @@
+{
+ "key": "deit_tiny16",
+ "input": 224,
+ "torch_ms_1thr": 42.22085326910019,
+ "torch_ms_4thr": 20.001472905278206,
+ "torch_tiles_per_s_4thr_b32": 61.60580049348917,
+ "onnx_mb": 22.227043,
+ "onnx_max_abs_diff": 3.2186508178710938e-06,
+ "onnx_ms_1thr": 31.33157454431057,
+ "onnx_ms_4thr": 18.56214553117752,
+ "onnx_tiles_per_s_4thr_b32": 84.27919553394176
+}

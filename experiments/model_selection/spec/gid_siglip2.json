@@ -1,0 +1,52 @@
+{
+ "key": "gid_siglip2",
+ "repo": "prithivMLmods/GiD-Land-Cover-Classification",
+ "trained_on": "GID-15 (Gaofen-2, 4 m)",
+ "n_src_labels": 15,
+ "unmapped_labels": [
+  "artificial grassland",
+  "garden plot",
+  "natural grassland",
+  "shrub land"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 92.895759,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.29523809523809524,
+   "acc_all1260": 0.2984126984126984,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.29523809523809524,
+   "acc_all1260": 0.2873015873015873,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.29523809523809524,
+ "acc_all1260": 0.2873015873015873,
+ "in_vocab_rate": 0.8714285714285714,
+ "unmapped_mass": 0.13139301538467407,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.8055555555555556,
+  "Forest": 0.1111111111111111,
+  "Highway": 0.005555555555555556,
+  "Industrial": 0.016666666666666666,
+  "Residential": 0.38333333333333336,
+  "River": 0.03888888888888889,
+  "SeaLake": 0.65
+ },
+ "wall_s": 293.3953881263733,
+ "torch_ms_1thr": 557.0457801222801,
+ "torch_ms_4thr": 227.1171249449253
+}

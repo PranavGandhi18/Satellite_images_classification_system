@@ -1,0 +1,12 @@
+{
+ "key": "mobilevitv2_100",
+ "input": 256,
+ "torch_ms_1thr": 79.3551653623581,
+ "torch_ms_4thr": 34.96885485947132,
+ "torch_tiles_per_s_4thr_b32": 13.244136379546338,
+ "onnx_mb": 17.662654,
+ "onnx_max_abs_diff": 2.8014183044433594e-06,
+ "onnx_ms_1thr": 49.313317984342575,
+ "onnx_ms_4thr": 22.922301664948463,
+ "onnx_tiles_per_s_4thr_b32": 46.77282981238148
+}

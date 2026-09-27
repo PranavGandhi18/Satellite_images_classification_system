@@ -1,0 +1,33 @@
+{
+  "architecture": "vit_small_patch16_224",
+  "num_classes": 1000,
+  "num_features": 384,
+  "global_pool": "token",
+  "pretrained_cfg": {
+    "tag": "augreg_in21k_ft_in1k",
+    "custom_load": true,
+    "input_size": [
+      3,
+      224,
+      224
+    ],
+    "fixed_input_size": true,
+    "interpolation": "bicubic",
+    "crop_pct": 0.9,
+    "crop_mode": "center",
+    "mean": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "std": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "num_classes": 1000,
+    "pool_size": null,
+    "first_conv": "patch_embed.proj",
+    "classifier": "head"
+  }
+}

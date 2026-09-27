@@ -1,0 +1,12 @@
+{
+ "key": "vit_small16_in21k@112",
+ "input": 112,
+ "torch_ms_1thr": 44.04016584157944,
+ "torch_ms_4thr": 20.195551216602325,
+ "torch_tiles_per_s_4thr_b32": 70.27756693938089,
+ "onnx_mb": 86.548776,
+ "onnx_max_abs_diff": 1.7404556274414062e-05,
+ "onnx_ms_1thr": 28.60621176660061,
+ "onnx_ms_4thr": 13.291040435433388,
+ "onnx_tiles_per_s_4thr_b32": 109.33093624809199
+}

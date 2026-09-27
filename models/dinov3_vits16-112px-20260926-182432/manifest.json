@@ -1,0 +1,314 @@
+{
+  "model_version": "dinov3_vits16-112px-20260926-182432",
+  "created_at": "2026-09-26T18:24:55+00:00",
+  "task": "single-label land-use classification of 64x64 Sentinel-2 RGB tiles",
+  "classes": [
+    "AnnualCrop",
+    "Forest",
+    "Highway",
+    "Industrial",
+    "Residential",
+    "River",
+    "SeaLake"
+  ],
+  "input": {
+    "format": "PNG",
+    "width": 64,
+    "height": 64,
+    "bands": 3,
+    "mode": "RGB",
+    "dtype": "uint8",
+    "tensor": "float32 N x 3 x 64 x 64, raw 0-255 values, channel order R,G,B"
+  },
+  "preprocessing": {
+    "inside_onnx": true,
+    "steps": [
+      "x / 255",
+      "bicubic resize 64->112 (align_corners=False)",
+      "(x - mean) / std"
+    ],
+    "size": 112,
+    "mean": [
+      0.485,
+      0.456,
+      0.406
+    ],
+    "std": [
+      0.229,
+      0.224,
+      0.225
+    ]
+  },
+  "onnx": {
+    "file": "model.onnx",
+    "sha256": "21fac291a0927c3107994a337428a80f696c0d759a677631c4cac034199846bb",
+    "input": "tile",
+    "outputs": [
+      "logits",
+      "embedding"
+    ],
+    "embedding_dim": 384,
+    "opset": 18,
+    "parity_vs_pytorch_on_validation": {
+      "max_abs_logit_diff": 4.509091377258301e-05,
+      "argmax_agreement": 1.0
+    }
+  },
+  "backbone": {
+    "key": "dinov3_vits16",
+    "timm_name": "vit_small_patch16_dinov3.lvd1689m",
+    "weights_licence": "DINOv3 License (custom; needs legal review before shipping)",
+    "params_m": 21.59
+  },
+  "training": {
+    "data": "candidate_tiles",
+    "data_sha256": "b74f8119904cc825357115561775e9077ea537542c99a5b0588e2c8cb66bc09b",
+    "n_train": 892,
+    "n_val": 158,
+    "split": "stratified 85/15, seed 0",
+    "recipe": {
+      "epochs": 15,
+      "batch_size": 32,
+      "optimizer": "AdamW",
+      "weight_decay": 0.05,
+      "backbone_lr": 5e-05,
+      "head_lr": 0.0005,
+      "schedule": "one-cycle (10% warm-up)",
+      "label_smoothing": 0.1,
+      "augmentation": "h/v flips, 90-degree rotations"
+    },
+    "best_epoch": 14,
+    "val_accuracy": 0.9936708860759493,
+    "train_minutes_cpu": 8.6,
+    "threads": 32,
+    "log": [
+      {
+        "epoch": 0,
+        "train_loss": 1.8968330579144614,
+        "val_acc": 0.7911392405063291,
+        "elapsed_s": 33
+      },
+      {
+        "epoch": 1,
+        "train_loss": 1.225142097898892,
+        "val_acc": 0.9050632911392406,
+        "elapsed_s": 68
+      },
+      {
+        "epoch": 2,
+        "train_loss": 0.6938035871301379,
+        "val_acc": 0.9113924050632911,
+        "elapsed_s": 102
+      },
+      {
+        "epoch": 3,
+        "train_loss": 0.5423353133457047,
+        "val_acc": 0.9873417721518988,
+        "elapsed_s": 136
+      },
+      {
+        "epoch": 4,
+        "train_loss": 0.4818411384310041,
+        "val_acc": 0.9873417721518988,
+        "elapsed_s": 169
+      },
+      {
+        "epoch": 5,
+        "train_loss": 0.4673049034816878,
+        "val_acc": 0.9746835443037974,
+        "elapsed_s": 206
+      },
+      {
+        "epoch": 6,
+        "train_loss": 0.4542805626988411,
+        "val_acc": 0.9873417721518988,
+        "elapsed_s": 243
+      },
+      {
+        "epoch": 7,
+        "train_loss": 0.4524130629641669,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 279
+      },
+      {
+        "epoch": 8,
+        "train_loss": 0.4497549150671278,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 314
+      },
+      {
+        "epoch": 9,
+        "train_loss": 0.4505127710955484,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 347
+      },
+      {
+        "epoch": 10,
+        "train_loss": 0.44880041373627527,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 382
+      },
+      {
+        "epoch": 11,
+        "train_loss": 0.44886567337172373,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 417
+      },
+      {
+        "epoch": 12,
+        "train_loss": 0.44843801856040955,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 450
+      },
+      {
+        "epoch": 13,
+        "train_loss": 0.44839051152978626,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 481
+      },
+      {
+        "epoch": 14,
+        "train_loss": 0.44845300167798996,
+        "val_acc": 0.9936708860759493,
+        "elapsed_s": 513
+      }
+    ],
+    "versions": {
+      "torch": "2.14.0+cpu",
+      "timm": "1.0.30",
+      "onnxruntime": "1.30.0"
+    }
+  },
+  "calibration": {
+    "method": "temperature scaling on validation (grid search, NLL)",
+    "temperature": 0.5756,
+    "val_nll_before": 0.12058830261230469,
+    "val_nll_after": 0.04590211063623428,
+    "val_ece_before": 0.08629868981204451,
+    "val_ece_after": 0.0003548211689237135
+  },
+  "policy": {
+    "version": "p1",
+    "min_confidence": 0.5,
+    "ood_threshold": 0.187622,
+    "rules": [
+      "unfamiliar if ood_score > ood_threshold",
+      "needs_review if confidence < min_confidence or quality flags include blank / grey_low_texture",
+      "confident otherwise"
+    ],
+    "chosen_on": "validation split",
+    "target_selective_accuracy": 0.99,
+    "val_coverage_at_min_confidence": 1.0,
+    "val_accuracy_at_min_confidence": 0.9936708860759493,
+    "ood_percentile": 99.0
+  },
+  "ood": {
+    "method": "1 - max cosine similarity between the tile embedding and the training-tile embeddings",
+    "reference_file": "reference_embeddings.npy",
+    "reference_sha256": "58d9108af17def63ceb4fcd23a7726aa54ce79529f4c9577973eca6133c81edc",
+    "n_reference": 892
+  },
+  "selftest": {
+    "tolerance": 0.001,
+    "tiles": [
+      {
+        "file": "selftest/AnnualCrop.png",
+        "source": "candidate_tiles/AnnualCrop/AnnualCrop_22.png",
+        "expected_label": "AnnualCrop",
+        "expected_probabilities": [
+          0.9965959787368774,
+          0.0005150000215508044,
+          0.0006459999713115394,
+          0.0007060000207275152,
+          0.0005939999828115106,
+          0.0004579999949783087,
+          0.0004839999892283231
+        ]
+      },
+      {
+        "file": "selftest/Forest.png",
+        "source": "candidate_tiles/Forest/Forest_33.png",
+        "expected_label": "Forest",
+        "expected_probabilities": [
+          0.00056900002527982,
+          0.996146023273468,
+          0.0006510000093840063,
+          0.0006309999735094607,
+          0.0006339999963529408,
+          0.0007280000136233866,
+          0.0006419999990612268
+        ]
+      },
+      {
+        "file": "selftest/Highway.png",
+        "source": "candidate_tiles/Highway/Highway_43.png",
+        "expected_label": "Highway",
+        "expected_probabilities": [
+          0.0004149999876972288,
+          0.00048099999548867345,
+          0.9966869950294495,
+          0.0004970000009052455,
+          0.000754999986384064,
+          0.0005959999980404973,
+          0.00056900002527982
+        ]
+      },
+      {
+        "file": "selftest/Industrial.png",
+        "source": "candidate_tiles/Industrial/Industrial_95.png",
+        "expected_label": "Industrial",
+        "expected_probabilities": [
+          0.00045399999362416565,
+          0.0003800000122282654,
+          0.0006500000017695129,
+          0.9971039891242981,
+          0.0007169999880716205,
+          0.0002610000083222985,
+          0.0004330000083427876
+        ]
+      },
+      {
+        "file": "selftest/Residential.png",
+        "source": "candidate_tiles/Residential/Residential_148.png",
+        "expected_label": "Residential",
+        "expected_probabilities": [
+          0.0005409999866969883,
+          0.0006019999855197966,
+          0.0006130000110715628,
+          0.0005319999763742089,
+          0.996487021446228,
+          0.0005949999904260039,
+          0.0006309999735094607
+        ]
+      },
+      {
+        "file": "selftest/River.png",
+        "source": "candidate_tiles/River/River_83.png",
+        "expected_label": "River",
+        "expected_probabilities": [
+          0.0006479999865405262,
+          0.000534999999217689,
+          0.000582000007852912,
+          0.0004070000140927732,
+          0.0005709999823011458,
+          0.9966040253639221,
+          0.0006520000169984996
+        ]
+      },
+      {
+        "file": "selftest/SeaLake.png",
+        "source": "candidate_tiles/SeaLake/SeaLake_145.png",
+        "expected_label": "SeaLake",
+        "expected_probabilities": [
+          0.0005890000029467046,
+          0.0006760000251233578,
+          0.0005159999709576368,
+          0.0005990000208839774,
+          0.0006120000034570694,
+          0.0005779999773949385,
+          0.996429979801178
+        ]
+      }
+    ]
+  }
+}

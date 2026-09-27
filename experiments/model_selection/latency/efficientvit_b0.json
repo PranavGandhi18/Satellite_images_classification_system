@@ -1,0 +1,12 @@
+{
+ "key": "efficientvit_b0",
+ "input": 224,
+ "torch_ms_1thr": 10.974524542689323,
+ "torch_ms_4thr": 10.910861194133759,
+ "torch_tiles_per_s_4thr_b32": 436.6919056175021,
+ "onnx_mb": 8.620538,
+ "onnx_max_abs_diff": 3.212690353393555e-05,
+ "onnx_ms_1thr": 4.032483324408531,
+ "onnx_ms_4thr": 3.9024855941534042,
+ "onnx_tiles_per_s_4thr_b32": 351.8176163589311
+}

@@ -1,0 +1,51 @@
+{
+ "key": "taufiqdp_convnextv2_t",
+ "repo": "taufiqdp/convnext-eurosat",
+ "trained_on": "EuroSAT (split unknown)",
+ "n_src_labels": 10,
+ "unmapped_labels": [
+  "HerbaceousVegetation",
+  "Pasture",
+  "PermanentCrop"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 27.874186,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.8857142857142857,
+   "acc_all1260": 0.8849206349206349,
+   "input": 384
+  },
+  "native": {
+   "acc_eval": 0.9095238095238095,
+   "acc_all1260": 0.9023809523809524,
+   "input": 384
+  }
+ },
+ "primary_prep": "native",
+ "input": 384,
+ "acc_eval": 0.9095238095238095,
+ "acc_all1260": 0.9023809523809524,
+ "in_vocab_rate": 0.9738095238095238,
+ "unmapped_mass": 0.0750388503074646,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.95,
+  "Forest": 0.9888888888888889,
+  "Highway": 0.8111111111111111,
+  "Industrial": 0.9833333333333333,
+  "Residential": 0.9111111111111111,
+  "River": 0.8722222222222222,
+  "SeaLake": 0.8
+ },
+ "wall_s": 1478.496169090271,
+ "torch_ms_1thr": 715.435303747654,
+ "torch_ms_4thr": 317.5281248986721
+}

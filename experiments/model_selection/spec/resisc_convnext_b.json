@@ -1,0 +1,83 @@
+{
+ "key": "resisc_convnext_b",
+ "repo": "tanganke/convnext-base-224_resisc45_sgd_batch-size-64_lr-0.01_steps-4000",
+ "trained_on": "RESISC45 (aerial, 0.2-30 m)",
+ "n_src_labels": 45,
+ "unmapped_labels": [
+  "airplane",
+  "airport",
+  "baseball diamond",
+  "basketball court",
+  "beach",
+  "bridge",
+  "chaparral",
+  "church",
+  "cloud",
+  "commercial area",
+  "desert",
+  "golf course",
+  "ground track field",
+  "harbor",
+  "intersection",
+  "island",
+  "meadow",
+  "mobile home park",
+  "mountain",
+  "overpass",
+  "palace",
+  "parking lot",
+  "railway",
+  "railway station",
+  "roundabout",
+  "runway",
+  "sea ice",
+  "ship",
+  "snowberg",
+  "stadium",
+  "storage tank",
+  "tennis court",
+  "terrace",
+  "thermal power station",
+  "wetland"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Highway",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 87.612589,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.4523809523809524,
+   "acc_all1260": 0.42777777777777776,
+   "input": 224
+  },
+  "native": {
+   "acc_eval": 0.40476190476190477,
+   "acc_all1260": 0.3746031746031746,
+   "input": 224
+  }
+ },
+ "primary_prep": "native",
+ "input": 224,
+ "acc_eval": 0.40476190476190477,
+ "acc_all1260": 0.3746031746031746,
+ "in_vocab_rate": 0.17777777777777778,
+ "unmapped_mass": 0.8131053447723389,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.8722222222222222,
+  "Forest": 0.19444444444444445,
+  "Highway": 0.0,
+  "Industrial": 0.6222222222222222,
+  "Residential": 0.0,
+  "River": 0.9055555555555556,
+  "SeaLake": 0.027777777777777776
+ },
+ "wall_s": 338.93283200263977,
+ "torch_ms_1thr": 508.9392624795437,
+ "torch_ms_4thr": 207.71123096346855
+}

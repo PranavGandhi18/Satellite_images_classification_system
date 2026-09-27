@@ -1,0 +1,30 @@
+{
+ "key": "efficientvit_b0",
+ "group": "ImageNet Transformer",
+ "family": "Hybrid",
+ "input": 224,
+ "dim": 1280,
+ "C": 0.1,
+ "cv_acc": 0.9476190476190476,
+ "eval_acc": 0.9428571428571428,
+ "eval_ci": [
+  0.9027892209873706,
+  0.9670134740916038
+ ],
+ "eval_macro_f1": 0.9429455484882759,
+ "acc_at_80cov": 0.9880952380952381,
+ "per_class_recall": {
+  "AnnualCrop": 0.9,
+  "Forest": 1.0,
+  "Highway": 0.8666666666666667,
+  "Industrial": 0.9666666666666667,
+  "Residential": 0.9666666666666667,
+  "River": 0.9333333333333333,
+  "SeaLake": 0.9666666666666667
+ },
+ "params_m": 2.129008,
+ "gflops": 0.197906432,
+ "cpu_ms_1thr": 13.06883804500103,
+ "cpu_ms_4thr": 14.466539025306702,
+ "wall_s": 38.05318021774292
+}

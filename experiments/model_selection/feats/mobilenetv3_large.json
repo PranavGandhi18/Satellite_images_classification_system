@@ -1,0 +1,30 @@
+{
+ "key": "mobilenetv3_large",
+ "group": "ImageNet CNN",
+ "family": "CNN",
+ "input": 224,
+ "dim": 1280,
+ "C": 0.01,
+ "cv_acc": 0.940952380952381,
+ "eval_acc": 0.9476190476190476,
+ "eval_ci": [
+  0.9086523067849005,
+  0.9705031054454606
+ ],
+ "eval_macro_f1": 0.9470137596263328,
+ "acc_at_80cov": 1.0,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 1.0,
+  "Highway": 0.9666666666666667,
+  "Industrial": 1.0,
+  "Residential": 1.0,
+  "River": 0.8333333333333334,
+  "SeaLake": 0.8666666666666667
+ },
+ "params_m": 4.202032,
+ "gflops": 0.43061952,
+ "cpu_ms_1thr": 17.87545718252659,
+ "cpu_ms_4thr": 12.059006839990616,
+ "wall_s": 46.20105743408203
+}

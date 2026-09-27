@@ -1,0 +1,12 @@
+{
+ "key": "ssl4eo_resnet50_rgb_moco",
+ "input": 224,
+ "torch_ms_1thr": 126.94256380200386,
+ "torch_ms_4thr": 44.99688930809498,
+ "torch_tiles_per_s_4thr_b32": 18.117405418461573,
+ "onnx_mb": 93.95001,
+ "onnx_max_abs_diff": 1.341104507446289e-07,
+ "onnx_ms_1thr": 87.52603828907013,
+ "onnx_ms_4thr": 25.407230481505394,
+ "onnx_tiles_per_s_4thr_b32": 46.57086571954412
+}

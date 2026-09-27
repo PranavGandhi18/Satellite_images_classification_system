@@ -1,0 +1,12 @@
+{
+ "key": "resnet18_in1k@64",
+ "input": 64,
+ "torch_ms_1thr": 17.671292647719383,
+ "torch_ms_4thr": 16.579067334532738,
+ "torch_tiles_per_s_4thr_b32": 576.8465587885996,
+ "onnx_mb": 44.696348,
+ "onnx_max_abs_diff": 8.106231689453125e-06,
+ "onnx_ms_1thr": 7.097948342561722,
+ "onnx_ms_4thr": 1.3469923287630081,
+ "onnx_tiles_per_s_4thr_b32": 898.6567063918151
+}

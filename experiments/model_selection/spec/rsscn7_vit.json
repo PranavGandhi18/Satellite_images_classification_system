@@ -1,0 +1,44 @@
+{
+ "key": "rsscn7_vit",
+ "repo": "SeyedAli/Remote-Sensing-UAV-image-classification",
+ "trained_on": "RSSCN7 (aerial)",
+ "n_src_labels": 7,
+ "unmapped_labels": [
+  "grass",
+  "parking"
+ ],
+ "covers": [
+  "AnnualCrop",
+  "Forest",
+  "Industrial",
+  "Residential",
+  "River",
+  "SeaLake"
+ ],
+ "params_m": 85.804039,
+ "by_prep": {
+  "plain": {
+   "acc_eval": 0.48095238095238096,
+   "acc_all1260": 0.43412698412698414,
+   "input": 224
+  }
+ },
+ "primary_prep": "plain",
+ "input": 224,
+ "acc_eval": 0.48095238095238096,
+ "acc_all1260": 0.43412698412698414,
+ "in_vocab_rate": 0.9388888888888889,
+ "unmapped_mass": 0.07953840494155884,
+ "per_class_recall_all": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 0.06666666666666667,
+  "Highway": 0.0,
+  "Industrial": 0.6722222222222223,
+  "Residential": 0.55,
+  "River": 0.7833333333333333,
+  "SeaLake": 0.0
+ },
+ "wall_s": 392.51778507232666,
+ "torch_ms_1thr": 511.63800433278084,
+ "torch_ms_4thr": 202.31102406978607
+}

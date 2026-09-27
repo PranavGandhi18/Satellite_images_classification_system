@@ -1,0 +1,30 @@
+{
+ "key": "mobilevitv2_100",
+ "group": "ImageNet Transformer",
+ "family": "Hybrid",
+ "input": 256,
+ "dim": 512,
+ "C": 0.1,
+ "cv_acc": 0.9285714285714285,
+ "eval_acc": 0.9476190476190476,
+ "eval_ci": [
+  0.9086523067849005,
+  0.9705031054454606
+ ],
+ "eval_macro_f1": 0.9474841254378675,
+ "acc_at_80cov": 0.9821428571428571,
+ "per_class_recall": {
+  "AnnualCrop": 0.9666666666666667,
+  "Forest": 1.0,
+  "Highway": 0.9,
+  "Industrial": 0.9,
+  "Residential": 1.0,
+  "River": 0.9666666666666667,
+  "SeaLake": 0.9
+ },
+ "params_m": 4.388841,
+ "gflops": 3.62315776,
+ "cpu_ms_1thr": 121.71760760247707,
+ "cpu_ms_4thr": 83.8768444955349,
+ "wall_s": 201.2230520248413
+}

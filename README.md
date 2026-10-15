@@ -4,12 +4,12 @@ GalaxEye take-home (Backend Engineer, ML Systems). The service is an offline lan
 
 ## Live demo
 
-**Open the app: [https://confidential-personalized-reached-brad.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9](https://confidential-personalized-reached-brad.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9)**
+**Open the app: [https://apnic-richmond-vbulletin-presence.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9](https://apnic-richmond-vbulletin-presence.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9)**
 
 This link opens the classify page. The other pages:
-- [Query results](https://confidential-personalized-reached-brad.trycloudflare.com/explore): lookup, filter, aggregate, review queue, CSV export;
-- [Health dashboard](https://confidential-personalized-reached-brad.trycloudflare.com/health);
-- [API docs](https://confidential-personalized-reached-brad.trycloudflare.com/docs).
+- [Query results](https://apnic-richmond-vbulletin-presence.trycloudflare.com/explore): lookup, filter, aggregate, review queue, CSV export;
+- [Health dashboard](https://apnic-richmond-vbulletin-presence.trycloudflare.com/health);
+- [API docs](https://apnic-richmond-vbulletin-presence.trycloudflare.com/docs).
 
 The key in the link opens only this classifier. It's stored in a cookie on the first visit, so the other links work without it.
 

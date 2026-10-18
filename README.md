@@ -4,12 +4,12 @@ GalaxEye take-home (Backend Engineer, ML Systems). The service is an offline lan
 
 ## Live demo
 
-**Open the app: [https://apnic-richmond-vbulletin-presence.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9](https://apnic-richmond-vbulletin-presence.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9)**
+**Open the app: [https://developers-stores-loud-locate.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9](https://developers-stores-loud-locate.trycloudflare.com/?key=2PEcAFu3RuhKtPKUO8FnbLv-AvV331o9)**
 
 This link opens the classify page. The other pages:
-- [Query results](https://apnic-richmond-vbulletin-presence.trycloudflare.com/explore): lookup, filter, aggregate, review queue, CSV export;
-- [Health dashboard](https://apnic-richmond-vbulletin-presence.trycloudflare.com/health);
-- [API docs](https://apnic-richmond-vbulletin-presence.trycloudflare.com/docs).
+- [Query results](https://developers-stores-loud-locate.trycloudflare.com/explore): lookup, filter, aggregate, review queue, CSV export;
+- [Health dashboard](https://developers-stores-loud-locate.trycloudflare.com/health);
+- [API docs](https://developers-stores-loud-locate.trycloudflare.com/docs).
 
 The key in the link opens only this classifier. It's stored in a cookie on the first visit, so the other links work without it.
 
@@ -207,7 +207,7 @@ Everything the service and the training script need is already in the repository
 
 ## Sharing a link (access key)
 
-By default the service has no authentication of its own: it binds to 127.0.0.1, and on this instance it is reached through the Caddy edge, which demands the instance's master token. That token also unlocks Jupyter and the other portal apps, so it must not be shared. For a link you *can* share, the service has its own **optional access key**:
+By default the service has no authentication of its own: it binds to 127.0.0.1, so nothing outside the machine can reach it directly. The usual way to expose an app on a Vast instance is the Caddy edge, which demands the instance's master token. That token also unlocks Jupyter and the other portal apps, so it must not be shared. For a link you *can* share, the service has its own **optional access key**:
 
 - **Turning it on:** set `TILE_ACCESS_KEY`, or `TILE_ACCESS_KEY_FILE=<file>`, which keeps the key out of process listings. With it set, **every** route (page, API, `/docs`, static files, `/healthz`) needs the key.
 - **Ways to present the key:**
@@ -222,13 +222,14 @@ By default the service has no authentication of its own: it binds to 127.0.0.1, 
   ```
 
 **How it's wired on this Vast instance:**
-- **Service:** the supervisor service `tile-classifier` (`/opt/supervisor-scripts/tile-classifier.sh`) reads the key from `.secrets/tile_access_key` (mode 600, git-ignored).
-- **Shareable link:** a Cloudflare quick tunnel points **straight at the app** (`http://localhost:18000`), bypassing Caddy. The only credential on that link is the classifier's own key, which grants nothing else on the machine.
-- **Owner route:** the Caddy route (public port 19900) still demands the master token, and now the key as well.
+- **Service:** the supervisor service `tile-classifier` (`/opt/supervisor-scripts/tile-classifier.sh`, `/etc/supervisor/conf.d/tile-classifier.conf`) runs uvicorn from `.venv` on `127.0.0.1:18000` and reads the key from `.secrets/tile_access_key` (mode 600, git-ignored). Supervisor restarts it after a crash or reboot.
+- **Shareable link:** a Cloudflare quick tunnel points **straight at the app** (`http://localhost:18000`). The only credential on that link is the classifier's own key, which grants nothing else on the machine.
+- **No Caddy route:** this instance has no free external port, so the app isn't behind the Caddy edge at all. It's reachable only through the tunnel (with the key), or from the machine itself on `127.0.0.1:18000`.
 
 Commands:
 ```bash
-# (re)create the shareable tunnel - quick-tunnel URLs change whenever the instance restarts
+# (re)create the shareable tunnel - quick-tunnel URLs change whenever the instance restarts.
+# Cloudflare rate-limits new quick tunnels per IP: if this fails (429 in /var/log/portal/tunnel_manager.log), retry every few minutes.
 curl -s -X POST http://localhost:11111/start-quick-tunnel/http%3A%2F%2Flocalhost%3A18000
 curl -s http://localhost:11111/get-all-quick-tunnels          # the entry for http://localhost:18000
 echo "https://<tunnel-host>/?key=$(cat .secrets/tile_access_key)"
